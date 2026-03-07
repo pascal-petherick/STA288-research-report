@@ -1,37 +1,37 @@
-### Title here.
+# Title here.
+our names here, with the contributions/sections that each of us lead.
 
 
-
-## Introduction
+### Introduction
 
 Introduction...
 
 
-## Materials and Methods
+### Materials and Methods
 
 And here we write materials and methods...
 
 
-## Results
+### Results
 
 etc
 
 
-## Conclusions 
+### Conclusions 
 
 etc
 
 
-## Discussion
+### Discussion
 
 etc
 
 
-## References
+### References
 
 etc
 
 
-## Appendixes
+### Appendixes
 
 etc
