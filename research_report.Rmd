@@ -1,0 +1,37 @@
+### Title here.
+
+
+
+## Introduction
+
+Introduction...
+
+
+## Materials and Methods
+
+And here we write materials and methods...
+
+
+## Results
+
+etc
+
+
+## Conclusions 
+
+etc
+
+
+## Discussion
+
+etc
+
+
+## References
+
+etc
+
+
+## Appendixes
+
+etc
