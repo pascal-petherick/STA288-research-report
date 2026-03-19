@@ -1,0 +1,201 @@
+```{r}
+Ironbard_cities=c("Vardo", "Hofn", "Helvig", "Bjurholm", "Blonduos", "Helluland")
+
+Providence_cities=c("Hayarano", "Shinobi", "Biruwa", "Takazaki", "Akkeshi", "Kiyobico", "Reading", 
+                    "Nelson", "Arcadia")
+
+Bonne_Sante_cities=c("Nidoma", "Talu", "Riroua", "Pauma", "Valais", "Gordes", "Maeva", "Kinsale", 
+                     "Colmar", "Vaiku", "Mahuti", "Eden")
+
+set.seed(288)
+srs_Ironbard_cities=sample(Ironbard_cities, 3)
+srs_Providence_cities=sample(Providence_cities, 3)
+srs_Bonne_Sante_cities=sample(Bonne_Sante_cities, 3)
+
+sampled_cities=c(srs_Ironbard_cities, srs_Providence_cities, srs_Bonne_Sante_cities)
+
+print(sampled_cities)
+
+# we now have 3 cities from each island stored in variable sampled_cities. Time to take an SRS 
+# of people who are 66 or older from each city's birth records.
+
+Blonduos_birth_records=c(
+"01/300	Kerstin Eklund",
+"01/300	Simon Sorensen",
+"03/300	Kirstie Ibsen",
+"06/300	Fabian Eklund",
+"09/300	Halden Blomgren",
+"10/300	Ruby Connolly",
+"11/300	Colin Morris",
+"12/300	Olson Solberg",
+"13/300	Tobias Ibsen",
+"17/300	Tamara Morris",
+"21/300	Naoki Regan",
+"22/300	Misaki Price",
+"22/300	Hannah Jensen",
+"23/300	David Holst",
+"25/300	Helga Sorensen",
+"27/300	Signe Solberg",
+"03/301	Alice Morris",
+"06/301	Berit Ibsen",
+"08/301	Erik Eklund",
+"10/301	Axel Sorensen",
+"12/301	Ragnar Carlsen",
+"13/301	Brenda Sorensen",
+"14/301	Marie Eklund",
+"18/301	Kaya Solberg",
+"21/301	Matthias Solberg",
+"21/301	Jana Bager",
+"22/301	Vanessa Blomgren",
+"23/301	Grace Murphy",
+"25/301	Lukas Sorensen",
+"26/301	Ebbe Jensen",
+"26/301	Christian Eklund",
+"27/301	Gunnar Jensen",
+"01/302	Naoto Edwards",
+"02/302	Sian Morris",
+"03/302	Kirk Solberg",
+"03/302	Tyr Solberg",
+"04/302	Miho Collins",
+"06/302	Nina Blomgren",
+"15/302	Donar Blomgren",
+"15/302	Gunnar Solberg",
+"16/302	Leira Carlsen",
+"17/302	Liam Lange",
+"19/302	Elena Blomgren",
+"21/302	Tyr Sorensen",
+"22/302	Alexander Ibsen",
+"22/302	Hannah McCarthy",
+"25/302	Tamara Regan",
+"26/302	Lucia Ibsen",
+"28/302	Rina Price",
+"01/303	Ryouta Edwards",
+"05/303	Logan Edwards",
+"08/303	Hallmar Solberg",
+"08/303	Erik Blomgren",
+"13/303	Sven Blomgren",
+"15/303	Christian Sorensen",
+"18/303	Sarah Solberg",
+"21/303	Tyr Sorensen",
+"22/303	Tate Yamada",
+"22/303	Rina Price",
+"23/303	Megan Sato",
+"24/303	Dane Carlsen",
+"03/304	Inge Sorensen",
+"04/304	Henrik Solberg",
+"08/304	Katie Carlsen",
+"18/304	Lukas Jensen",
+"20/304	Anamica Collins",
+"22/304	Michael Blomgren",
+"24/304	Agda Bager",
+"25/304	Jamie Morris",
+"27/304	Isabella Brown",
+"28/304	Auna Morris",
+"01/305	Pernille Eklund",
+"01/305	Kaito Sato",
+"05/305	Christopher Lenz",
+"13/305	Sho Brown",
+"14/305	Ella Solberg",
+"20/305	Dahl Ibsen",
+"03/306	Dean Price",
+"11/306	Neena Morris",
+"13/306	Emma McCarthy",
+"13/306	Lilja Blomgren",
+"20/306	Gala Solberg",
+"21/306	Jonas Sorensen",
+"23/306	Daichi Connolly",
+"23/306	Anastasia Ibsen",
+"26/306	Jessica Morris",
+"28/306	Michelle Price",
+"01/307	Tyr Solberg",
+"04/307	Ashley Brown",
+"10/307	Kirstie Blomgren",
+"11/308	Conor McCarthy",
+"16/308	Luke Connolly",
+"19/308	Lutz Sauer",
+"22/308	Maximilian Solberg",
+"03/309	Ingrid Solberg",
+"09/309	Sarah Solberg",
+"11/309	Sakura Collins",
+"11/309	Tobias Sorensen",
+"14/309	Ian Sato",
+"26/309	Tyra Sorensen",
+"12/310	Pierrick Solberg",
+"20/310	Tyra Solberg",
+"08/311	William McCarthy",
+"10/311	Kerstin Sorensen",
+"15/311	Valdemar Sorensen",
+"24/311	Ella Sorensen",
+"28/311	Felix Thorn",
+"28/311	Nanami Yamada"
+)
+
+Blonduos_sample_11=sample(Blonduos_birth_records, 11)
+# manually checking how many of these people are alive, and if they are alive, if they consent
+# to participate in the study.
+
+# Hannah Jensen: alive and consents!
+# Sakura Collins: alive but declined
+# Sven Blomgren: deceased
+# Elena Blomgren: alive and consented!
+# Dean Price: ailve and consented.
+# Ashley Brown, alive and consented
+# Olson Solber: deceased
+# Ian Sato: deceased
+# Maximilian Solberg: alive but declined.
+# Brenda Sorenson: alive and consented
+# Emma McCarthy: deceased.
+
+# obtained 5/11 participants. Need to re-sample 6 more people.
+# removing the previous 11 values from the vector:
+
+elements_to_remove=c("22/300	Hannah Jensen", "11/309	Sakura Collins", "13/303	Sven Blomgren",
+  "19/302	Elena Blomgren", "03/306	Dean Price", "04/307	Ashley Brown", "12/300	Olson Solberg",
+  "14/309	Ian Sato", "22/308	Maximilian Solberg", "13/301	Brenda Sorensen", 
+  "13/306	Emma McCarthy")
+
+Blonduos_birth_records <- Blonduos_birth_records[!(Blonduos_birth_records %in% elements_to_remove)]
+
+Blonduos_sample_24=sample(Blonduos_birth_records, 24)
+print(Blonduos_sample_24)
+
+# Gunnar Solberg: deceased
+# Sian Morris: alive and consented (6/11)
+# Jana Bager: consented (7/11)
+# Agda Bager: deceased 
+# Misaki Price: deceased
+# Kaito Sato: deceased
+# Pierrick Solberg: deceased
+# Ella Solberg: declined consent
+# Axel Sorensen: consented (8/11)
+# Christian Sorensen: deceased
+# Dane Carlsen: deceased
+# Jonas Sorensen: consented (9/11)
+# Christopher Lenz: deceased
+# Leira Carlsen: deceased
+# Matthias Solberg: deceased
+# Tyr Solberg: declined consent
+# Jessica Morris: deceased
+# Lucia Ibsen: deceased
+# Anastasia Ibsen: consented (10/11)
+# Michelle Price: declined consent
+# Jamie Morris: deceased
+# Tate Yamada: deceased
+# Megan Sato: deceased
+# Ragnar Carlsen: consented. (11/11)
+
+Blonduos_sample = c(
+"22/300	Hannah Jensen",
+"19/302	Elena Blomgren",
+"03/306	Dean Price",
+"04/307	Ashley Brown",
+"13/301	Brenda Sorensen",
+"02/302	Sian Morris",
+"21/301	Jana Bager",
+"10/301	Axel Sorensen",
+"21/306	Jonas Sorensen",
+"23/306	Anastasia Ibsen",
+"12/301	Ragnar Carlsen"
+)
+```
+
