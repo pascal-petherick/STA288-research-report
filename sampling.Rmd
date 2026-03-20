@@ -157,7 +157,7 @@ elements_to_remove=c("22/300	Hannah Jensen", "11/309	Sakura Collins", "13/303	Sv
 Blonduos_birth_records <- Blonduos_birth_records[!(Blonduos_birth_records %in% elements_to_remove)]
 
 Blonduos_sample_24=sample(Blonduos_birth_records, 24)
-print(Blonduos_sample_24)
+#print(Blonduos_sample_24)
 
 # Gunnar Solberg: deceased
 # Sian Morris: alive and consented (6/11)
@@ -197,5 +197,231 @@ Blonduos_sample = c(
 "23/306	Anastasia Ibsen",
 "12/301	Ragnar Carlsen"
 )
-```
 
+Vardo_birth_records = c(
+"02/300	Florian Lund",
+"03/300	Sakura McCarthy",
+"04/300	Ryan Murphy",
+"04/300	Lisa Solberg",
+"06/300	Haruka Watanabe",
+"07/300	Haru Collins",
+"08/300	Shiori Wilson",
+"09/300	Justin Edwards",
+"11/300	Emma Sorensen",
+"11/300	Susannah Connolly",
+"13/300	David Eklund",
+"16/300	Siobhan Collins",
+"16/300	Amy Wilson",
+"19/300	Megan Yamada",
+"19/300	Erla Larsen",
+"19/300	Thurston Solberg",
+"19/300	Astrid Carlsen",
+"19/300	Christian Madsen",
+"19/300	Mia Eklund",
+"19/300	Arvid Eklund",
+"20/300	Sophie Eklund",
+"21/300	Henrik Sorensen",
+"21/300	Dane Eklund",
+"21/300	Kristina Lund",
+"21/300	Lucia Solberg",
+"22/300	Galen Bager",
+"24/300	James Brown",
+"24/300	Tyr Carlsen",
+"24/300	Matthias Bager",
+"25/300	Halle Sorensen",
+"27/300	Jorn Pallesen",
+"27/300	Hakan Sorensen",
+"28/300	Gert Jensen",
+"01/301	Erla Solberg",
+"02/301	Sho Regan",
+"03/301	Daniel Brown",
+"07/301	Gerik Sorensen",
+"09/301	Malena Carlsen",
+"10/301	Vanessa Carlsen",
+"10/301	Takumi Price",
+"11/301	Daniel Blomgren",
+"12/301	Tindra Solberg",
+"13/301	Yorick Blomgren",
+"13/301	Ragnar Carlsen",
+"14/301	Kaeda Edwards",
+"14/301	Mitchell Morris",
+"16/301	Darren Wilson",
+"16/301	Tatsuya Wilson",
+"17/301	Kaya Thorn",
+"18/301	Kenta Edwards",
+"18/301	Harold Jensen",
+"22/301	Emma Connolly",
+"27/301	Hama Brown",
+"27/301	Erling Carlsen",
+"27/301	Sophia Carlsen",
+"27/301	Amon Yamada",
+"27/301	Joshua Yamada",
+"01/302	Ingrid Sorensen",
+"01/302	Tove Pallesen",
+"02/302	Karen Madsen",
+"02/302	Peter Hall",
+"02/302	Florian Lund",
+"02/302	Erling Solberg",
+"02/302	Kristel Bergmann",
+"03/302	Tyra Carlsen",
+"03/302	Axel Sorensen",
+"05/302	Shin Collins",
+"05/302	Rin Kimura",
+"06/302	Sigrid Blomgren",
+"06/302	Gala Blomgren",
+"10/302	Jasmin Solberg",
+"11/302	Kristina Solberg",
+"11/302	Ursula Solberg",
+"13/302	Tove Carlsen",
+"14/302	Simon Solberg",
+"15/302	Katie Murphy",
+"17/302	Gin Morris",
+"18/302	Paul Blomgren",
+"20/302	Alexis Dupont",
+"22/302	Tomas Carlsen",
+"23/302	Signe Carlsen",
+"24/302	Liane Bauer",
+"24/302	Marc Wagner",
+"25/302	Gavin Connolly",
+"01/303	Emma Carlsen",
+"02/303	Ai Brown",
+"04/303	Jarrod Hall",
+"04/303	Grace Price",
+"05/303	Grace Collins",
+"05/303	Kirstie Sorensen",
+"06/303	Inge Carlsen",
+"07/303	Riko Jackson",
+"07/303	Kirstie Jensen",
+"09/303	Lucy Collins",
+"13/303	Erin Kimura",
+"13/303	Tobias Blomgren",
+"14/303	Ella Madsen",
+"14/303	David Olsen",
+"18/303	Martina Lindner",
+"21/303	Yorick Solberg",
+"22/303	Sascha Guenther",
+"23/303	Nils Eklund",
+"23/303	Amy Collins",
+"23/303	Taylor Collins",
+"27/303	Sophia Blomgren",
+"01/304	Christian Bager",
+"03/304	Paige Wilson",
+"04/304	Hunter Morris",
+"07/304	Torvald Blomgren",
+"07/304	Niamh Murphy",
+"07/304	Nerina Yamada",
+"07/304	Zoe Morris",
+"07/304	Ralf Wenzel",
+"10/304	Sonja Schulze",
+"12/304	Katie Solberg",
+"12/304	Ava Kimura",
+"15/304	Dylan Collins",
+"16/304	Kevin Brown",
+"18/304	Sorena Eklund",
+"22/304	Valdemar Erickson",
+"24/304	Julian Eklund",
+"24/304	Raphael Sorensen",
+"27/304	Gemma Moore",
+"28/304	Nana Jackson",
+"01/305	Jacques Jacobsen",
+"02/305	Tineka Thorn",
+"04/305	Peter Wilson",
+"05/305	Soeren Guenther",
+"08/305	Daiki Kimura",
+"11/305	Edgar Morris",
+"13/305	Kayleigh Morris",
+"15/305	Conor Connolly",
+"17/305	Jarrod Summers",
+"17/305	Ian Summers",
+"21/305	Sten Sorensen",
+"22/305	Per Peters",
+"23/305	Brigit Clausen",
+"01/306	Lars Carlsen",
+"03/306	Jessica McCarthy",
+"09/306	Vanessa Eklund",
+"10/306	Sabrina Guenther",
+"10/306	Ingrid Larsen",
+"10/306	Philipp Mohr",
+"13/306	Jonas Erickson",
+"17/306	Delaney Kimura",
+"04/307	Marcel Sorensen",
+"08/307	Gunnar Eklund",
+"22/307	Valerie Hardy",
+"28/307	Daiki Edwards",
+"28/307	Francois Page",
+"05/308	Gabriele Schwarz",
+"07/308	Liam Morris",
+"14/308	Kevin Connolly",
+"17/308	Gunnar Solberg",
+"20/308	Kristel Sommer",
+"21/308	Sian Wilson",
+"25/308	Ruth Bauer",
+"26/308	Macon Dupont",
+"04/309	Helsa Lund",
+"15/309	Daiki Wilson",
+"15/309	Ryan Regan",
+"22/309	Natalia Guenther",
+"24/309	Bridey Kimura",
+"27/309	Sten Solberg",
+"10/310	Bernhard Guenther",
+"13/310	Patrick Yamada",
+"19/310	Rida Page",
+"19/310	Regine Sommer",
+"20/310	Yorick Sorensen",
+"22/310	Mark Morris",
+"22/310	Christopher Froehlich",
+"25/310	Manan Mardia",
+"01/311	Mitchell Regan",
+"02/311	Klara Blomgren",
+"03/311	Konstanze Busch",
+"04/311	Ebbe Blomgren"
+)
+
+Vardo_sample_29=sample(Vardo_birth_records, 29)
+
+# print(Vardo_sample_29)
+
+# Sian Wilson: declined
+# Christopher Froehlich: consented (1/11)
+# Mana Mardia: consented (2/11)
+# Harold Jensen: deceased
+# Lucia Solberg: consented (3/11)
+# Sophia Blomgren: consented (4/11)
+# Martina Lindner: deceased
+# Tove Pallesen: consented (5/11)
+# Per Peters: consented (6/11)
+# Lucy Collins: deceased
+# Emma Connolly: consented (7/11)
+# Tomas Carlsen: deceased
+# Sascha Guenther: deceased
+# Arvid Eklund: consented (8/11)
+# Sten Solberg: deceased
+# Karen Madsen: deceased
+# Conor Connelly: consented (9/11)
+# Raphael Sorensen: deceased
+# Siobhan Collins: deceased
+# Jessica McCarthy: deceased
+# Grace Price: consented (10/11)
+# Sophia Carlsen: deceased
+# Sigrid Blomgren: deceased
+# David Eklund: deceased
+# Riko Jackson: deceased
+# Ella Medsen: deceased
+# James Brown: declined
+# Natalia Guenther: deceased
+# Vanessa Eklund: consented!
+
+Vardo_sample <- c(
+  "22/310\tChristopher Froehlich",
+  "25/310\tMana Mardia",
+  "21/300\tLucia Solberg",
+  "27/303\tSophia Blomgren",
+  "01/302\tTove Pallesen",
+  "22/305\tPer Peters",
+  "22/301\tEmma Connolly",
+  "19/300\tArvid Eklund",
+  "15/305\tConor Connelly",
+  "04/303\tGrace Price",
+  "09/306\tVanessa Eklund"
+)
+```
