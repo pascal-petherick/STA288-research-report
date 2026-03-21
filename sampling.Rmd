@@ -426,6 +426,383 @@ Vardo_sample <- c(
   "09/306\tVanessa Eklund"
 )
 ```
+
+```{r}
+Helvig_birth_records=c(
+"01/300 Yorick Blomgren",
+"02/300 Sakura Collins",
+"05/300 Nico Jensen",
+"06/300 Niamh Wilson",
+"07/300 Elin Sorensen",
+"08/300 Malena Sorensen",
+"09/300 Ella Bager",
+"10/300 Berit Carlsen",
+"11/300 Lea Solberg",
+"11/300 Sophie Blomgren",
+"12/300 Brenda Solberg",
+"15/300 Selina Sorensen",
+"17/300 Nanami Collins",
+"17/300 Olivia Sato",
+"17/300 Ansel Page",
+"18/300 Jessica Brown",
+"18/300 Erika Olsen",
+"20/300 Jorn Solberg",
+"22/300 Brittany Suzuki",
+"22/300 Malena Lund",
+"23/300 Sinead Regan",
+"24/300 Dahl Carlsen",
+"25/300 Nanami Morris",
+"25/300 Marie Blomgren",
+"27/300 Tove Ibsen",
+"28/300 Lars Blomgren",
+"01/301 Olivia Watanabe",
+"03/301 Sebastian Solberg",
+"04/301 David Solberg",
+"04/301 Chloe Wilson",
+"05/301 Dean Edwards",
+"05/301 Magdalena Carlsen",
+"06/301 Gala Sorensen",
+"08/301 Liam Watanabe",
+"09/301 Kirk Solberg",
+"09/301 Agda Solberg",
+"12/301 Tindra Blomgren",
+"12/301 Jack Wilson",
+"13/301 Nathan Collins",
+"14/301 Mike Collins",
+"14/301 Laura Solberg",
+"16/301 Lynnea Lund",
+"17/301 Lynnea Ibsen",
+"17/301 Olina Solberg",
+"18/301 Kaya Lund",
+"18/301 Olina Sorensen",
+"19/301 Kirk Carlsen",
+"22/301 Masa Sato",
+"24/301 Thurston Lund",
+"24/301 Sinead Moore",
+"25/301 Colin Watanabe",
+"26/301 Tyr Ibsen",
+"27/301 Jamie Edwards",
+"27/301 Asuka Brown",
+"27/301 Helsa Solberg",
+"28/301 Minh Regan",
+"28/301 Emily Regan",
+"28/301 Julia Lund",
+"04/302 Maya Wilson",
+"05/302 Olson Jensen",
+"07/302 Jeneve Carlsen",
+"09/302 Emma Blomgren",
+"10/302 Britt Holst",
+"11/302 Ebbe Carlsen",
+"13/302 Megane Dupont",
+"15/302 Tobias Lund",
+"15/302 Kari Bager",
+"21/302 Tyra Sorensen",
+"21/302 Tyra Blomgren",
+"23/302 Ashley Murphy",
+"23/302 Rin Morris",
+"23/302 Ronan Hall",
+"23/302 Henning Neumann",
+"23/302 Nikola Langer",
+"25/302 Brigit Solberg",
+"25/302 Krista Scholz",
+"27/302 Grace Wilson",
+"28/302 Naoki Edwards",
+"28/302 Donar Solberg",
+"01/303 Florian Solberg",
+"03/303 Edgar Edwards",
+"03/303 Kerstin Sorensen",
+"04/303 Hannah Collins",
+"06/303 Allana Wilson",
+"07/303 Emily Regan",
+"08/303 Gin McCarthy",
+"10/303 Jakob Blomgren",
+"10/303 Karin Richter",
+"11/303 Miki Moore",
+"12/303 Monika Hahn",
+"13/303 Inge Sorensen",
+"13/303 Akane Brown",
+"14/303 Nikolaus Gruber",
+"15/303 Nils Carlsen",
+"17/303 Ren Edwards",
+"20/303 Daniel Solberg",
+"21/303 Ole Sorensen",
+"25/303 Neena Kimura",
+"25/303 Cariel Solberg",
+"02/304 Michelle Wilson",
+"04/304 Arvid Solberg",
+"07/304 Liam Collins",
+"08/304 Camille Delacroix",
+"08/304 Tobias Blomgren",
+"09/304 Illona Blomgren",
+"13/304 Gerald Reinhardt",
+"15/304 Pernille Carlsen",
+"15/304 Anika Solberg",
+"16/304 Robert Maier",
+"19/304 Bert Meyer",
+"19/304 Karsten Hartmann",
+"20/304 Karena Lund",
+"24/304 Christian Lund",
+"24/304 Lawrence Hall",
+"24/304 Birte Hahn",
+"27/304 Anthony Collins",
+"01/305 Jordan Brown",
+"03/305 Jolanta Richter",
+"04/305 Lars Solberg",
+"06/305 Raum Blomgren",
+"09/305 Florian Blomgren",
+"09/305 Maike Neumann",
+"12/305 Lars Sorensen",
+"12/305 Sean Morris",
+"13/305 Signe Sorensen",
+"16/305 Raum Solberg",
+"16/305 Shiori Wilson",
+"17/305 Maya Wilson",
+"26/305 Florian Carlsen",
+"04/306 Emma Thorn",
+"05/306 Sven Carlsen",
+"09/306 Auna Hall",
+"09/306 Nathan Hall",
+"12/306 Britt Blomgren",
+"19/306 Erik Beyer",
+"21/306 Lucy McCarthy",
+"26/306 Lucia Sorensen",
+"28/306 Felix Sorensen",
+"28/306 Monika Schumann",
+"22/307 Emily Kimura",
+"15/308 Corinna Hoffmann",
+"17/308 Kirstie Larsen",
+"19/308 Reinhardt Voigt",
+"22/308 Elin Blomgren",
+"04/309 Ryan Kimura",
+"08/309 Aimon Hardy",
+"09/309 Adam Stein",
+"10/309 Leanne Davidson",
+"17/309 Kevin Edwards",
+"23/309 Anund Olsen",
+"24/309 Katarina Lenz",
+"24/309 Petra Wagner",
+"25/309 Tatjana Gruber",
+"01/310 Marcel Solberg",
+"01/310 Valentina Langer",
+"01/310 Josh Kimura",
+"04/310 Ulrich Bergmann",
+"05/310 Jake Murphy",
+"08/310 Henri Langer",
+"14/310 Raum Carlsen",
+"14/310 Kosaku Yamasaki",
+"28/310 Rita Voigt",
+"02/311 Malena Blomgren",
+"03/311 Astrid Richter")
+
+Helvig_sample_11=sample(Helvig_birth_records, 11)
+print(Helvig_sample_11)
+#"17/300 Nanami Collins" Declined   
+#"27/301 Asuka Brown"      
+#"19/304 Karsten Hartmann"
+#"16/305 Shiori Wilson"    
+#"17/301 Lynnea Ibsen" Consented    
+#"28/302 Naoki Edwards"  
+#"11/303 Miki Moore"       
+#"21/306 Lucy McCarthy"    
+#"25/303 Cariel Solberg" Consented  
+#"15/303 Nils Carlsen"     
+#"23/309 Anund Olsen"
+
+#2/11
+
+elements_to_remove=c("17/300 Nanami Collins", "27/301 Asuka Brown", "19/304 Karsten Hartmann", "16/305 Shiori Wilson", "17/301 Lynnea Ibsen", "28/302 Naoki Edwards", "11/303 Miki Moore", "21/306 Lucy McCarthy", "25/303 Cariel Solberg", "15/303 Nils Carlsen", "23/309 Anund Olsen")
+
+Helvig_birth_records <- Helvig_birth_records[!(Helvig_birth_records %in% elements_to_remove)]
+
+Helvig_sample_24=sample(Helvig_birth_records, 29)
+print(Helvig_sample_24)
+#"28/310 Rita Voigt" Consented
+# Arvid Solberg Consented
+# Cariel Solberg Consented
+# Kevin Edwards Consented
+# Raum Carlsen Consented
+# Olina Sorensen Consented
+# Pernille Carlsen consented
+# Gerald Reinhardt Consented
+# Katarina Lenz Consented
+#11/11
+
+#Final Helvig Sample
+#"17/301 Lynnea Ibsen"
+#"25/303 Cariel Solberg"
+#"28/310 Rita Voigt" Consented
+# 04/304 Arvid Solberg Consented
+# 25/303 Cariel Solberg Consented
+# 17/309 Kevin Edwards Consented
+# 14/310 Raum Carlsen Consented
+# 18/301 Olina Sorensen Consented
+# 15/304 Pernille Carlsen consented
+# 13/304 Gerald Reinhardt Consented
+# 24/309 Katarina Lenz Consented
+
+Biruwa_birth_records=c(
+"01/300 Nana Morris",
+"02/300 Takuya Sato",
+"05/300 Ursula Eklund",
+"09/300 Jessica Moore",
+"10/300 Tyr Lund",
+"10/300 Mizuki Collins",
+"14/300 Katie Jackson",
+"16/300 Ryan Kimura",
+"19/300 Yorick Lund",
+"19/300 Hama Connolly",
+"20/300 Mary Edwards",
+"21/300 Sarah Bager",
+"22/300 Gunnar Sorensen",
+"23/300 Kayleigh Kimura",
+"23/300 Elias Larsen",
+"24/300 Julian Carlsen",
+"24/300 Justin Price",
+"26/300 Kerstin Ibsen",
+"26/300 Leah Davies",
+"27/300 Nicholas Collins",
+"28/300 Tyr Sorensen",
+"28/300 Jackson Wilson",
+"02/301 Ruby Kimura",
+"02/301 Nanami Morris",
+"04/301 Leif Blomgren",
+"05/301 Megan Watanabe",
+"08/301 Cameron McCarthy",
+"13/301 Colin Collins",
+"13/301 Ren Brown",
+"19/301 Gunnar Thorn",
+"19/301 Rosalind Lund",
+"24/301 Samantha Connolly",
+"24/301 Zoe Sato",
+"02/302 Gavin Morris",
+"06/302 Sten Ibsen",
+"06/302 Pantea Sorensen",
+"06/302 Lars Blomgren",
+"11/302 Fabian Sorensen",
+"13/302 Yuka Watanabe",
+"19/302 Daichi Morris",
+"21/302 Josh Collins",
+"22/302 Akira Sato",
+"23/302 Ole Bager",
+"24/302 Ole Jensen",
+"24/302 Harold Jensen",
+"25/302 Hannah McCarthy",
+"01/303 Anastasia Blomgren",
+"04/303 Gavin Connolly",
+"10/303 Mark Wilson",
+"11/303 Daiki Brown",
+"17/303 Scott McCarthy",
+"18/303 Aya Connolly",
+"19/303 Olina Carlsen",
+"23/303 Chloe Collins",
+"23/303 Haruka Collins",
+"24/303 Matthias Carlsen",
+"25/303 Taylor Morris",
+"26/303 Daichi Wilson",
+"28/303 Yuta Morris",
+"07/304 Mia Jensen",
+"13/304 Tate Moore",
+"13/304 Logan Edwards",
+"14/304 Jacob Connolly",
+"24/304 Sarah Solberg",
+"28/304 Riley Wilson",
+"12/305 Arvid Jensen",
+"16/305 Britt Eklund",
+"17/305 Harry McCarthy",
+"18/305 Cariel Blomgren",
+"20/305 Marcus Yamada",
+"27/305 Arvid Jensen",
+"28/305 Adam Wilson",
+"01/306 Gemma Morris",
+"04/306 Remy Connolly",
+"08/306 Sylvain Vasseur",
+"11/306 Nanami Kimura",
+"27/306 Maximilian Jensen",
+"01/307 Mayu Morris",
+"11/307 Neil McKay",
+"14/307 Berangere Pons",
+"14/307 Taylor Moore",
+"18/307 Tobias Eklund",
+"23/307 Lucas Yamada",
+"25/307 Nanami Jones",
+"26/307 Sophia Ibsen",
+"09/308 Nanami Morris",
+"09/308 Natascha Girard",
+"15/308 Daniel Kimura",
+"24/308 Liliane Gautier",
+"24/308 Chanda Babu",
+"01/309 Erin Collins",
+"11/309 Hans Blomgren",
+"13/309 Cyril Pelletier",
+"18/309 Max Leger",
+"21/309 Keerthana Chunduri",
+"23/309 Cameron Morris",
+"24/309 Torvald Carlsen",
+"07/310 Nirvan Dhar",
+"13/310 Rin Connolly",
+"15/310 Claudie Leger",
+"15/310 Tomas Bager",
+"19/310 Yanick Gautier",
+"20/310 Esha Mehta",
+"23/310 Killian McCarthy",
+"26/310 Eliane Besson",
+"27/310 Paresh Datta",
+"03/311 Gayan Babu",
+"04/311 Layak Mardia",
+"10/311 Lee Moore",
+"12/311 Aadesh Bhatt",
+"14/311 Tyra Blomgren",
+"14/311 Tindra Eklund",
+"14/311 Emaan Kulkarni",
+"16/311 Daniel Ibsen",
+"20/311 Patricia Price",
+"20/311 Suvarna Ganaka",
+"22/311 Ryouta McCarthy",
+"24/311 Akane Connolly")
+
+Biruwa_sample_11=sample(Biruwa_birth_records, 11)
+print(Biruwa_sample_11)
+
+# Liliane Gautier
+# Torvald Carlsen
+# Ryan Kimura
+
+#3/11
+
+elements_to_remove=c("22/300 Gunnar Sorensen", "14/311 Tyra Blomgren", "24/308 Liliane Gautier",
+  "18/309 Max Leger", "24/309 Torvald Carlsen", "23/302 Ole Bager", "16/300 Ryan Kimura",
+  "28/300 Jackson Wilson", "23/303 Chloe Collins", "01/307 Mayu Morris", 
+  "13/310 Rin Connolly")
+
+Biruwa_birth_records <- Biruwa_birth_records[!(Biruwa_birth_records %in% elements_to_remove)]
+
+Biruwa_sample_24=sample(Biruwa_birth_records, 35)
+print(Biruwa_sample_24)
+
+# Sarah Bager
+# Killian McCarthy
+# Nanami Kimura
+# Tobias Eklund
+# Remy Connolly
+# Cariel Blomgren
+# Chanda Babu
+# Sarah Solberg
+#11/11
+
+#Final Biruwa sample:
+# 24/308 Liliane Gautier
+# 24/309 Torvald Carlsen
+# 16/300 Ryan Kimura
+# 21/300 Sarah Bager
+# 23/310 Killian McCarthy
+# 11/306 Nanami Kimura
+# 18/307 Tobias Eklund
+# 04/306 Remy Connolly
+# 18/305 Cariel Blomgren
+# 24/308 Chanda Babu
+# 24/304 Sarah Solberg
+```
+
 ```{r}
 #Bonne Sante Cities - Talu, Eden, Valais
 set.seed(288)
