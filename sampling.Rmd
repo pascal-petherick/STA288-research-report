@@ -614,17 +614,17 @@ elements_to_remove=c("17/300 Nanami Collins", "27/301 Asuka Brown", "19/304 Kars
 
 Helvig_birth_records <- Helvig_birth_records[!(Helvig_birth_records %in% elements_to_remove)]
 
-Helvig_sample_24=sample(Helvig_birth_records, 29)
+Helvig_sample_24=sample(Helvig_birth_records, 31)
 print(Helvig_sample_24)
 #"28/310 Rita Voigt" Consented
 # Arvid Solberg Consented
-# Cariel Solberg Consented
 # Kevin Edwards Consented
 # Raum Carlsen Consented
 # Olina Sorensen Consented
 # Pernille Carlsen consented
 # Gerald Reinhardt Consented
 # Katarina Lenz Consented
+# Signe Sorensen Consented
 #11/11
 
 #Final Helvig Sample
@@ -632,14 +632,16 @@ print(Helvig_sample_24)
 #"25/303 Cariel Solberg"
 #"28/310 Rita Voigt" Consented
 # 04/304 Arvid Solberg Consented
-# 25/303 Cariel Solberg Consented
 # 17/309 Kevin Edwards Consented
 # 14/310 Raum Carlsen Consented
 # 18/301 Olina Sorensen Consented
 # 15/304 Pernille Carlsen consented
 # 13/304 Gerald Reinhardt Consented
 # 24/309 Katarina Lenz Consented
+# 13/305 Signe Sorensen consented.
+```
 
+```{r}
 Biruwa_birth_records=c(
 "01/300 Nana Morris",
 "02/300 Takuya Sato",
