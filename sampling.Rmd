@@ -803,11 +803,248 @@ print(Biruwa_sample_24)
 # 18/305 Cariel Blomgren
 # 24/308 Chanda Babu
 # 24/304 Sarah Solberg
+
+Shinobi_sample <- sample(Shinobi_birth_records, 30)
+print(Shinobi_sample)
+
+# 05/312 Juhani Ibsen 
+# 20/315 Matthew Brown DECEASED 
+# 09/306 Lena Olsen 
+# 19/319 Mia Yamada
+# 06/300 Elsa Thorn DECEASED
+# 22/318 Ophelia Eklund DECEASED 
+# 08/318 Kashvi Kumar 
+# 07/301 Viggo Sorensen
+# 26/300 Ava Collins 
+# 14/305 Simon (Marshall) Sorensen
+# 24/314 Taylor Morris DECEASED
+# 06/308 Zachary Kimura DECEASED 
+# 02/312 Michelle Moore DECLINED
+# 01/303 Akane Watanabe
+# 23/316 Shane Sato 
+# 13/311 Kerstin Thorn 
+# 09/319 Amy Brown DECLINED 
+# 16/303 Desmond Connolly DECEASED 
+# 22/318 Ophelia Eklund DECEASED 
+# 11/318 Hiro Kimura DECLINED 
+# 27/318 Benjamin Wilson
+
+
+
+Reading_birth_records <- c(
+"21/300 Mia Regan",
+"21/300 Alexander Watanabe",
+"21/300 Sophia Connolly",
+"21/300 Riku Price",
+"21/300 Ryan Jackson",
+"22/300 Sven Solberg",
+"25/300 Mike McCarthy",
+"25/300 Michaela Sato",
+"25/300 Hans Carlsen",
+"25/300 Lucia Solberg",
+"27/300 Raphael Solberg",
+"27/300 Ryouta Connolly",
+"02/301 Samuel Eklund",
+"03/301 Takumi Roberts",
+"04/301 Viggo Blomgren",
+"04/301 Karena Jensen",
+"06/301 Brittany McCarthy",
+"07/301 Bronwyn Wilson",
+"08/301 Anais Wilson",
+"09/301 Sanna Sorensen",
+"09/301 Gretel Solberg",
+"10/301 Takahiro McCarthy",
+"11/301 Noah Morris",
+"11/301 Bernard Dupont",
+"13/301 Felix Olsen",
+"15/301 Galen Lund",
+"15/301 Anamica Morris",
+"15/301 Brigit Jensen",
+"17/301 Ruby McCarthy",
+"17/301 Akane Collins",
+"17/301 Liliane Dupuy",
+"19/301 Manami Moore",
+"19/301 Tomas Larsen",
+"19/301 Monica Crawford",
+"21/301 Lucy Sato",
+"21/301 Mika Fukuda",
+"22/301 Saika Connolly",
+"22/301 Akari Nakano",
+"23/301 Kelvin Hill",
+"24/301 Olson Pallesen",
+"24/301 Yui Moore",
+"25/301 Katie Sato",
+"25/301 Liam Morris",
+"25/301 Ava Wilson",
+"26/301 Kazuya Suzuki",
+"26/301 Niall Black",
+"27/301 Tate Kimura",
+"27/301 Taichi Hara",
+"28/301 Shiori Regan",
+"01/302 Emma Kimura",
+"01/302 Kirstie Solberg",
+"02/302 Rumi Matsui",
+"03/302 Karina Blomgren",
+"03/302 Sarah Regan",
+"03/302 Rosalind Crawford",
+"04/302 Michael Jensen",
+"04/302 Kerr Findlay",
+"04/302 Magalie Besson",
+"05/302 Rina Morris",
+"05/302 Albert Lenz",
+"05/302 Derick Hughes",
+"05/302 Max Hernandez",
+"06/302 Raphael Sorensen",
+"07/302 Sarah Jackson",
+"08/302 Marcel Ibsen",
+"08/302 Jagan Srinivasan",
+"09/302 David Sorensen",
+"09/302 Jocelyne Lacroix",
+"11/302 Daniel Sato",
+"11/302 Matthew Sato",
+"11/302 Kisho Murakami",
+"12/302 Mathew Fraser",
+"12/302 Shuta Koyama",
+"12/302 Musashi Takeuchi",
+"13/302 Nicole Jones",
+"13/302 Takero Hashimoto",
+"14/302 Ian Wilson",
+"14/302 Jeneve Solberg",
+"14/302 Ella Solberg",
+"14/302 Josh Davies",
+"14/302 Christian McIntyre",
+"14/302 Yasuji Wada",
+"14/302 Akeno Taketa",
+"14/302 Takehiro Fujii",
+"15/302 Lahar Gadhavi",
+"16/302 Benjamin Brown",
+"16/302 Louisa Scott",
+"17/302 Raphael Eklund",
+"17/302 Sara Muir",
+"17/302 Wayne Williamson",
+"17/302 Daryl Johnston",
+"17/302 Andre Lefevre",
+"18/302 Shelley Fraser",
+"19/302 Theresa Bager",
+"19/302 Leona Duncan",
+"19/302 Auna Morris",
+"19/302 Toshiya Miyasaki",
+"19/302 Fabienne Fournier",
+"20/302 Mia Solberg",
+"20/302 Sarah Bager",
+"20/302 Lars Solberg",
+"20/302 Eva Connolly",
+"20/302 Tove Solberg",
+"20/302 Maja Mueller",
+"20/302 Philippe Benoit",
+"20/302 Regis Prevost",
+"21/302 Josh Kimura",
+"21/302 Jasmin Solberg",
+"22/302 Aaron Wilson",
+"22/302 Ross Brown",
+"22/302 Adrienne Hughes",
+"24/302 Conor Wilson",
+"24/302 Lucien Dupont",
+"24/302 Lyn Bell",
+"24/302 Ann Johnstone",
+"24/302 Gregg Hill",
+"25/302 Rinsho Iwasaki",
+"26/302 Sarah Erickson",
+"26/302 Kimi Miura",
+"26/302 Emaan Mishra",
+"27/302 Lynnea Bager",
+"27/302 Kimiko Takagi",
+"27/302 Lionel Bourgeois",
+"28/302 Emma Bager",
+"28/302 Raphael Thorn",
+"28/302 Linzi Robertson",
+"28/302 Victor Black", 
+"28/307 Luis Bonnet",
+"01/308 Renaud Mallet",
+"02/308 Mariko Endo",
+"03/308 Elena Carlsen",
+"04/308 Jack Price",
+"04/308 Geraldine Alexander",
+"05/308 Paige Jones",
+"05/308 Geraldine Kerr",
+"06/308 Sylvia Ritchie",
+"06/308 Kaori Yamasaki",
+"09/308 Herbert Huber",
+"10/308 Melissa Connolly",
+"10/308 Ayami Miyasaki",
+"10/308 Akiyo Ichikawa",
+"11/308 Vincent Lund",
+"12/308 Belle Regan",
+"13/308 Adam Morris",
+"14/308 Ella Bager",
+"14/308 Ragnar Olsen",
+"16/308 Kamal Mishra",
+"18/308 Maximilian Blomgren",
+"18/308 Paige McCarthy",
+"18/308 Barbara Meier",
+"19/308 Connor Watanabe",
+"19/308 Arthur Morris",
+"19/308 Soji Fujihara",
+"19/308 Kanehiro Okada",
+"19/308 Cheryl Boyle",
+"22/308 Armand Dupont",
+"22/308 Kanehiro Yokoyama",
+"23/308 Joel Masson",
+"24/308 Anand Mehta",
+"24/308 Risa Nakajima",
+"25/308 Gunter Pfeiffer",
+"27/308 Henrik Thorn",
+"28/308 Takaji Ando",
+"28/308 Ananya Gadhavi",
+"01/309 Olson Ibsen",
+"01/309 Kento Kaneko",
+"04/309 Nayan Kaur",
+"04/309 Lomash Kaur",
+"05/309 Anthea Scott",
+"05/309 Hiyori Fukuda",
+"06/309 Ryotaro Miyamoto",
+"07/309 Siobhan Hall",
+"07/309 Aude Garnier" 
+) 
+
+Reading_sample <- sample(Reading_birth_records, 50)
+print(Reading_sample)
+
+# 20/302 Lars Solberg
+# 05/302 Derick Hughes
+# 07/301 Bronwyn Wilson DECEASED 
+# 19/302 Fabienne Fournier DECEASED 
+# 02/301 Samuel Eklund DECLINED 
+# 22/302 Adrienne Hughes DECEASED 
+# 17/302 Sara Muir DECEASED 
+# 19/302 Theresa Bager
+# 22/301 Saika Connolly DECEASED 
+# 06/302 Raphael Sorensen DECEASED 
+# 09/302 Jocelyne Lacroix DECEASED 
+# 11/301 Noah Morris
+# 14/302 Josh Davies
+# 20/302 Mia Solberg DECEASED 
+# 14/302 Jeneve Solberg
+# 03/302 Sarah Regan DECEASED 
+# 09/301 Gretel Solberg
+# 28/302 Emma Bager DECEASED 
+# 01/302 Kirstie Solberg DECLINED 
+# 10/301 Takahiro McCarthy DECEASED 
+# 17/301 Liliane Dupuy DECEASED 
+# 27/300 Raphael Solberg DECEASED 
+# 24/302 Lyn Bell DECEASED 
+# 24/308 Risa Nakajima DECEASED 
+# 04/309 Lomash Kaur
+# 18/308 Maximilian Blomgren DECLINED 
+# 22/302 Adrienne Hughes DECEASED 
+# 14/308 Ragnar Olsen
+# 18/308 Barbara Meier DECEASED 
+# 23/308 Joel Masson 
+# 06/308 Sylvia Ritchie
 ```
 
 ```{r}
 #Bonne Sante Cities - Talu, Eden, Valais
-set.seed(288)
 Talu_birth_records = c("01/300	Tyra Carlsen",
 "02/300	Allana Sato",
 "04/300	Gala Eklund",
@@ -1064,7 +1301,6 @@ print(Talu_sample)
 ```
 
 ```{r}
-set.seed(288)
 #Bonne Sante Cities - Talu, Eden, Valais
 Eden_birth_records <- c("01/300 Sanna Carlsen",
 "03/300 Dionne Hall",
@@ -1415,7 +1651,6 @@ print(Eden_sample)
 
 ```{r}
 #Bonne Sante Cities - Talu, Eden, Valais
-set.seed(288)
 Valais_birth_records <- c(
   "01/300 Riko Moore",
 "04/300 Jacob Connolly",
