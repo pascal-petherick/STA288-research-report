@@ -428,6 +428,7 @@ Vardo_sample <- c(
 ```
 
 ```{r}
+set.seed(288)
 Helvig_birth_records=c(
 "01/300 Yorick Blomgren",
 "02/300 Sakura Collins",
@@ -642,6 +643,7 @@ print(Helvig_sample_24)
 ```
 
 ```{r}
+set.seed(288)
 Biruwa_birth_records=c(
 "01/300 Nana Morris",
 "02/300 Takuya Sato",
@@ -1044,6 +1046,7 @@ print(Reading_sample)
 ```
 
 ```{r}
+set.seed(288)
 #Bonne Sante Cities - Talu, Eden, Valais
 Talu_birth_records = c("01/300	Tyra Carlsen",
 "02/300	Allana Sato",
@@ -1301,6 +1304,7 @@ print(Talu_sample)
 ```
 
 ```{r}
+set.seed(288)
 #Bonne Sante Cities - Talu, Eden, Valais
 Eden_birth_records <- c("01/300 Sanna Carlsen",
 "03/300 Dionne Hall",
@@ -1650,6 +1654,7 @@ print(Eden_sample)
 ```
 
 ```{r}
+set.seed(288)
 #Bonne Sante Cities - Talu, Eden, Valais
 Valais_birth_records <- c(
   "01/300 Riko Moore",
