@@ -14,8 +14,55 @@ And here we write materials and methods...
 
 ### Results
 
-etc
 
+```{r}
+#File import
+library(readr)
+library(tidyverse)
+data <- read.csv("data.csv")
+```
+
+```{r}
+data %>% #box plot for memory game vs. tg
+  ggplot(aes(y=memory.game.seconds,x=treatment.group)) +
+  geom_boxplot(outliers=FALSE,staplewidth = 0.6) +
+  geom_point(color="red",alpha=0.25) +
+  labs(title="Memory Game Performance (seconds) by Treatment Group",
+       y="Memory Game Performance (seconds)",
+       x="Treatment Group")
+
+data %>% #box plot for card game vs. tg
+  ggplot(aes(x=cards.10)) +
+  geom_bar(color="aquamarine2",fill="aquamarine") +
+  labs(title="Card Matching Performance (Out of 10) by Treatment Group",
+       x="Card Matching Performance (/10)",
+       y="Frequency") +
+  scale_x_continuous(n.breaks=10) +
+  coord_cartesian(xlim=c(0.5,10))+
+  facet_wrap(~treatment.group)
+
+data %>% #box plot for card game vs. tg
+  ggplot(aes(x=vocabulary.20)) +
+  geom_bar(color="pink2",fill="pink") +
+  labs(title="Vocabulary Test Performance (Out of 20) by Treatment Group",
+       x="Vocabulary Test Performance (/20)",
+       y="Frequency") +
+  scale_x_continuous(n.breaks=20)+
+  coord_cartesian(xlim=c(0.5,19.5))+
+  facet_wrap(~treatment.group,dir="v")
+```
+
+```{r}
+qqnorm(data$memory.game.seconds)
+qqline(data$memory.game.seconds)
+
+qqnorm(data$cards.10)
+qqline(data$cards.10)
+
+qqnorm(data$vocabulary.20)
+qqline(data$vocabulary.20)
+
+```
 
 ### Conclusions 
 
