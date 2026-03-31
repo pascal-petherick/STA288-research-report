@@ -14,134 +14,152 @@ And here we write materials and methods...
 
 ### Results
 
-
+Package import:
 ```{r}
-#File import
+#Library import + csv file import
 library(readr)
 library(tidyverse)
 data <- read.csv("data.csv")
 ```
 
-
-Comparisons:
+Memory game (s) performance by Treatment Group:
 ```{r}
-data %>% #box plot for memory game vs. tg 
+data %>% #Box plot for memory game vs treatment group
   ggplot(aes(y=memory.game.seconds,x=treatment.group)) +
   geom_boxplot(outliers=FALSE,staplewidth = 0.6) +
-  geom_point(color="red",alpha=0.25) +
+  geom_point(color="red",alpha=0.25) + #Translucent points showing each datum
   labs(title="Memory Game Performance (seconds) by Treatment Group",
        y="Memory Game Performance (seconds)",
        x="Treatment Group")
 ```
 
+Card recall test (/10) performance by treatment group:
 ```{r}
-data %>% #box plot for card game vs. tg
+data %>% #bar chart for card recall test performance (/10) by treatment group
   ggplot(aes(x=cards.10)) +
   geom_bar(color="aquamarine2",fill="aquamarine") +
   labs(title="Card Matching Performance (Out of 10) by Treatment Group",
        x="Card Matching Performance (/10)",
        y="Frequency") +
-  scale_x_continuous(n.breaks=10) +
-  coord_cartesian(xlim=c(0.5,10))+
-  facet_wrap(~treatment.group)
+  scale_x_continuous(n.breaks=10) + #Sets the amount of breaks to 10 (discrete)
+  coord_cartesian(xlim=c(0.5,10))+ #Sets the bounds of the graph (0,10)
+  facet_wrap(~treatment.group) #Wraps by treatment group
 ```
 
+Vocabulary recall test (/20) performance by treatment group:
 ```{r}
-data %>% #box plot for vocab test vs. tg
+data %>% #bar chart for vocabulary recall test by treatment group
   ggplot(aes(x=vocabulary.20)) +
   geom_bar(color="pink2",fill="pink") +
   labs(title="Vocabulary Test Performance (Out of 20) by Treatment Group",
        x="Vocabulary Test Performance (/20)",
        y="Frequency") +
-  scale_x_continuous(n.breaks=20)+
-  coord_cartesian(xlim=c(0.5,19.5))+
-  facet_wrap(~treatment.group,dir="v")
+  scale_x_continuous(n.breaks=20)+ #Sets # of breaks to 20 (discrete)
+  coord_cartesian(xlim=c(0.5,19.5))+ #Sets bounds of graph (0,20)
+  facet_wrap(~treatment.group,dir="v") #Wraps by treatment group
 ```
 
+Q-Q Plots to test for normality of memory game data for each treatment group:
 ```{r}
+#Memory game Q-Q plot for control group
 qqnorm(data$memory.game.seconds[data$treatment.group=="Control"])
 qqline(data$memory.game.seconds[data$treatment.group=="Control"])
 
+#Memory game Q-Q plot for anaerobic group
 qqnorm(data$memory.game.seconds[data$treatment.group=="Anaerobic"])
 qqline(data$memory.game.seconds[data$treatment.group=="Anaerobic"])
 
+#Memory game Q-Q plot for aerobic group
 qqnorm(data$memory.game.seconds[data$treatment.group=="Aerobic"])
 qqline(data$memory.game.seconds[data$treatment.group=="Aerobic"])
+
+#Data appears roughly normal in all Q-Q plots, deviation from the line likely 
+#stems from a small sample size
 ```
 
+SDs of memory game (s) for each treatment group (ANOVA condition):
 ```{r}
-sd(data$memory.game.seconds[data$treatment.group=="Control"])
-sd(data$memory.game.seconds[data$treatment.group=="Anaerobic"])
-sd(data$memory.game.seconds[data$treatment.group=="Aerobic"])
-# None are >2x as large as the others, therefore SD is similar enough
-#H0: mu(control) = mu(anaerobic) = mu(aerobic)
-#H1: at least one differs
+#Creates a summary table of the memory game performance SD for each group
+data %>% summarize( 
+"Control SD"=sd(memory.game.seconds[treatment.group=="Control"]),
+"Anaerobic SD"=sd(memory.game.seconds[treatment.group=="Anaerobic"]),
+"Aerobic SD" = sd(memory.game.seconds[treatment.group=="Aerobic"]))
+
+# None are >2x as large as the others, therefore SD is similar enough for ANOVA
+```
+
+One-way ANOVA w/ Tukey HSD Test for memory game performance (s):
+```{r}
+#Does ANOVA test & saves it to variable
 mem_aov <- aov(data$memory.game.seconds~data$treatment.group)
+#Prints a summary of the ANOVA test
 summary(mem_aov)
+#Performs a Tukey HSD test on the ANOVA results to get adjusted p & 95% CI
 TukeyHSD(mem_aov,conf.level=0.95)
 ```
 
+Scatter plot of 7-day exercise history (minutes) vs. each test method (memory game/card recall/vocabulary recall), wrapped by treatment group. Colour of points corresponds to sleep quantity (Less than or greater than 8 hours):
 ```{r}
+#Memory game
 data %>%
-  mutate(total.exercise = low.intensity.exercise.7d+moderate.intensity.exercise.7d+high.intensity.exercise.7d) %>%
-  mutate(sleep.hrs.gl = ifelse(sleep.hrs>8,"More than 8 hours", "Less than 8 hours")) %>%
+  #Adds a "total exercise" column combining low/med/high intensity exercise
+  mutate(total.exercise = low.intensity.exercise.7d+
+           moderate.intensity.exercise.7d+high.intensity.exercise.7d) %>%
+  #Adds column for if participants got more/less than 8 hrs of sleep last night
+  mutate(sleep.hrs.gl =
+           ifelse(sleep.hrs>8,"More than 8 hours", "Less than 8 hours")) %>%
+  #Scatter plot w/ 7-day exercise history and memory game performance
+  #Coloured by amount of sleep (>/< 8 hrs)
   ggplot(aes(x=total.exercise,y=memory.game.seconds,colour=sleep.hrs.gl)) +
   geom_point() +
-  labs(y="Memory Game Performance (seconds)", x="Total Exercise in the last 7 days (minutes)", title="7-Day Exercise History vs Memory Game Performance",color="Sleep (hrs)") +
-  facet_wrap(~treatment.group)
+  labs(y="Memory Game Performance (seconds)",
+       x="Total Exercise in the last 7 days (minutes)",
+       title="7-Day Exercise History vs Memory Game Performance",
+       color="Sleep (hrs)") +
+  facet_wrap(~treatment.group) #Wrap by treatment group
 
 data %>%
-  mutate(total.exercise = low.intensity.exercise.7d+moderate.intensity.exercise.7d+high.intensity.exercise.7d) %>%
-  mutate(sleep.hrs.gl = ifelse(sleep.hrs>8,"More than 8 hours", "Less than 8 hours")) %>%
+  #Adds a "total exercise" column combining low/med/high intensity exercise
+  mutate(total.exercise = low.intensity.exercise.7d+
+           moderate.intensity.exercise.7d+high.intensity.exercise.7d) %>%
+  #Adds column for if participants got more/less than 8 hrs of sleep last night
+  mutate(sleep.hrs.gl =
+           ifelse(sleep.hrs>8,"More than 8 hours", "Less than 8 hours")) %>%
+  #Scatter plot w/ 7-day exercise history and card recall test performance
+  #Coloured by amount of sleep (>/< 8 hrs)
   ggplot(aes(x=total.exercise,y=cards.10,colour=sleep.hrs.gl)) +
   geom_point() +
-  labs(y="Card Test Performance (/10)", x="Total Exercise in the last 7 days (minutes)", title="7-Day Exercise History vs Card Recall Performance",color="Sleep (hrs)") +
-  facet_wrap(~treatment.group)
+  labs(y="Card Test Performance (/10)",
+       x="Total Exercise in the last 7 days (minutes)",
+       title="7-Day Exercise History vs Card Recall Performance",
+       color="Sleep (hrs)") +
+  facet_wrap(~treatment.group) #Wrap by treatment group
 
 data %>%
-  mutate(total.exercise = low.intensity.exercise.7d+moderate.intensity.exercise.7d+high.intensity.exercise.7d) %>%
-  mutate(sleep.hrs.gl = ifelse(sleep.hrs>8,"More than 8 hours", "Less than 8 hours")) %>%
+  #Adds a "total exercise" column combining low/med/high intensity exercise
+  mutate(total.exercise = low.intensity.exercise.7d+
+           moderate.intensity.exercise.7d+high.intensity.exercise.7d) %>%
+  #Adds column for if participants got more/less than 8 hrs of sleep last night
+  mutate(sleep.hrs.gl =
+           ifelse(sleep.hrs>8,"More than 8 hours", "Less than 8 hours")) %>%
+  #Scatter plot w/ 7-day exercise history and vocabulary recall test performance
+  #Coloured by amount of sleep (>/< 8 hrs)
   ggplot(aes(x=total.exercise,y=vocabulary.20,colour=sleep.hrs.gl)) +
   geom_point() +
-  labs(y="Vocabulary Test Performance (/20)", x="Total Exercise in the last 7 days (minutes)", title="7-Day Exercise History vs Vocabulary Recall Performance",color="Sleep (hrs)") +
-  facet_wrap(~treatment.group)
-```
-
-```{r}
-
-```
-
-```{r}
-
-data %>% summarize("Mean" = mean(memory.game.seconds),
-                   "Median/50th Quantile" = median(memory.game.seconds),
-                   "Standard Deviation" = sd(memory.game.seconds),
-                   "Minimum Value" = min(memory.game.seconds),
-                   "Maximum Value" = max(memory.game.seconds),
-                   "25th Quantile" = quantile(memory.game.seconds,0.25),
-                   "75th Quantile" = quantile(memory.game.seconds,0.75))
-data %>% summarize("Mean" = mean(cards.10),
-                   "Median/50th Quantile" = median(cards.10),
-                   "Standard Deviation" = sd(cards.10),
-                   "Minimum Value" = min(cards.10),
-                   "Maximum Value" = max(cards.10),
-                   "25th Quantile" = quantile(cards.10,0.25),
-                   "75th Quantile" = quantile(cards.10,0.75))
-data %>% summarize("Mean" = mean(vocabulary.20),
-                   "Median/50th Quantile" = median(vocabulary.20),
-                   "Standard Deviation" = sd(vocabulary.20),
-                   "Minimum Value" = min(vocabulary.20),
-                   "Maximum Value" = max(vocabulary.20),
-                   "25th Quantile" = quantile(vocabulary.20,0.25),
-                   "75th Quantile" = quantile(vocabulary.20,0.75))
+  labs(y="Vocabulary Test Performance (/20)",
+       x="Total Exercise in the last 7 days (minutes)",
+       title="7-Day Exercise History vs Vocabulary Recall Performance",
+       color="Sleep (hrs)") +
+  facet_wrap(~treatment.group) #Wrapped by treatment group
 ```
 
 
-Bootstrap of Memory Game
+Bootstrap + CI of memory game for each treatment group:
 ```{r}
 set.seed(288)
 
-n<-31 #Amount of sampled individuals per rep
+#Control group
+n<-31 #Amount of sampled individuals
 reps<-1000 #Set repetition amount
 boot_means<-vector("numeric",reps) #Initialize vector
 
@@ -153,22 +171,14 @@ boot_stat<-data %>%
 boot_means[i]<-boot_stat$mean_perf
 }
 
-boot_means<-data_frame(m_perf=boot_means) #Convert to dataframe for ggplot
-
-limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #Upper & lower 2.5% for 95% CI
-
-boot_means %>% ggplot(aes(x=m_perf)) +  #Generate a histogram w/ CI
-  geom_histogram(binwidth=0.5, colour="black",fill="grey") + 
-  labs(x="Bootstrap means of memory game performance (seconds), control group (n=31)",
-       y="Frequency") +
-  scale_x_continuous(n.breaks = 10) +
-  geom_vline(xintercept=limits[1], colour="blue",linetype="dotdash", size=0.8) +  
-  geom_vline(xintercept=limits[2], colour="blue",linetype="dotdash", size=0.8)
+boot_means<-data_frame(m_perf=boot_means) #To dataframe for getting limits
+limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #Upper/lower 2.5% for 95% CI
 print("Control group, 95% CI") #Make it easier to read
 print(limits) #95% Confidence Interval
 
 
-n<-33 #amount of ppl
+#Aerobic group
+n<-33 #amount of people
 boot_means<-vector("numeric",reps) #Re-initialize vector
 
 for(i in 1:reps){ #Bootstrap
@@ -178,23 +188,14 @@ boot_stat<-data %>%
   summarise(mean_perf=mean(memory.game.seconds[treatment.group=="Aerobic"]))
 boot_means[i]<-boot_stat$mean_perf
 }
-
-boot_means<-data_frame(m_perf=boot_means) #Convert to dataframe for ggplot
-
-limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #Upper and lower 2.5% for 95% CI
-
-boot_means %>% ggplot(aes(x=m_perf)) + #Histogram w/ 95% CI
-  geom_histogram(binwidth=0.5, colour="black",fill="grey") + 
-  labs(x="Bootstrap means of memory game performance (seconds), aerobic group (n=33)",
-       y="Frequency") +
-  scale_x_continuous(n.breaks = 10) +
-  geom_vline(xintercept=limits[1], colour="blue",linetype="dotdash", size=0.8) +  
-  geom_vline(xintercept=limits[2], colour="blue",linetype="dotdash", size=0.8)
+boot_means<-data_frame(m_perf=boot_means) #To dataframe for getting limits
+limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #Upper/lower 2.5% for 95% CI
 print("Aerobic group, 95% CI") #Makes it slightly more readable
 print(limits) #95% Confidence Interval
 
 
-n<-33 #number of ppl
+#Anaerobic group
+n<-33 #amount of people
 boot_means<-vector("numeric",reps) #Re-initialize vector
 
 for(i in 1:reps){ #Bootstrap
@@ -205,25 +206,18 @@ boot_stat<-data %>%
 boot_means[i]<-boot_stat$mean_perf
 }
 
-boot_means<-data_frame(m_perf=boot_means) #To dataframe for ggplot
-
-limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #upper and lower 2.5% for 95% CI
-
-boot_means %>% ggplot(aes(x=m_perf)) + #Histogram w/ CI
-  geom_histogram(binwidth=0.5, colour="black",fill="grey") + 
-  labs(x="Bootstrap means of memory game performance (seconds), anaerobic group (n=33)",
-       y="Frequency") +
-  scale_x_continuous(n.breaks = 10) +
-  geom_vline(xintercept=limits[1], colour="blue",linetype="dotdash", size=0.8) +  
-  geom_vline(xintercept=limits[2], colour="blue",linetype="dotdash", size=0.8)
+boot_means<-data_frame(m_perf=boot_means) #To dataframe for getting limits
+limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #Upper/lower 2.5% for 95% CI
 print("Anaerobic group, 95% CI") #Make it easier to read
 print(limits) #95% Confidence Interval
 ```
 
-Bootstrap of Card Game
+Bootstrap + CI of Card Game for each treatment group:
 ```{r}
 set.seed(288)
-n<-31 #Number of ppl
+
+#Control group
+n<-31 #Amount of people
 reps<-1000 #Number of repetitions
 boot_means<-vector("numeric",reps) #Initialize vector
 
@@ -235,21 +229,14 @@ boot_stat<-data %>%
 boot_means[i]<-boot_stat$mean_perf
 }
 
-boot_means<-data_frame(m_perf=boot_means) #To dataframe for ggplot
-
+boot_means<-data_frame(m_perf=boot_means) #To dataframe for limits
 limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #upper/lower 2.5% for 95% CI
-
-boot_means %>% ggplot(aes(x=m_perf)) + #Histogram w/ CI
-  geom_histogram(binwidth=1, colour="black",fill="grey") + 
-  labs(x="Bootstrap means of card game performance (/10), control group (n=31)",
-       y="Frequency") +
-  geom_vline(xintercept=limits[1], colour="blue",linetype="dotdash", size=0.8) +  
-  geom_vline(xintercept=limits[2], colour="blue",linetype="dotdash", size=0.8)
 print("Control group, 95% CI") #Visual clarity
 print(limits) #95% Confidence Interval
 
 
-n<-33 #Number of ppl
+#Aerobic group
+n<-33 #Number of people
 boot_means<-vector("numeric",reps) #Re-initialize vector
 
 for(i in 1:reps){ #Bootstrap
@@ -260,22 +247,15 @@ boot_stat<-data %>%
 boot_means[i]<-boot_stat$mean_perf
 }
 
-boot_means<-data_frame(m_perf=boot_means) #To dataframe for ggplot
-
+boot_means<-data_frame(m_perf=boot_means) #To dataframe for limits
 limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #upper/lower 2.5% for 95% CI
-
-boot_means %>% ggplot(aes(x=m_perf)) + #Histogram w/ CI
-  geom_histogram(binwidth=1, colour="black",fill="grey") + 
-  labs(x="Bootstrap means of card game performance (/10), aerobic group (n=33)",
-       y="Frequency") +
-  geom_vline(xintercept=limits[1], colour="blue",linetype="dotdash", size=0.8) +  
-  geom_vline(xintercept=limits[2], colour="blue",linetype="dotdash", size=0.8)
 print("Aerobic group, 95% CI") #Visual clarity
 print(limits) #95% Confidence Interval
 
 
-n<-33 #Amount of ppl
-boot_means<-vector("numeric",reps) #Initialize
+#Anaerobic group
+n<-33 #Amount of people
+boot_means<-vector("numeric",reps) #Re-initialize vector
 
 for(i in 1:reps){ #Bootstrap
 boot_stat<-data %>%
@@ -285,25 +265,19 @@ boot_stat<-data %>%
 boot_means[i]<-boot_stat$mean_perf
 }
 
-boot_means<-data_frame(m_perf=boot_means) #To dataframe for ggplot
-
+boot_means<-data_frame(m_perf=boot_means) #To dataframe for limits
 limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #Upper/lower 2.5% for 95% CI
-
-boot_means %>% ggplot(aes(x=m_perf)) + #Histogram w/ CI
-  geom_histogram(binwidth=1, colour="black",fill="grey") + 
-  labs(x="Bootstrap means of card game performance (/10), anaerobic group (n=33)",
-       y="Frequency") +
-  geom_vline(xintercept=limits[1], colour="blue",linetype="dotdash", size=0.8) +  
-  geom_vline(xintercept=limits[2], colour="blue",linetype="dotdash", size=0.8)
 print("Anaerobic group, 95% CI") #visual clarity
 print(limits) #95% Confidence Interval
 ```
 
-Bootstrap of Vocabulary Game
+Bootstrap + CI of Vocabulary game for each treatment group:
 ```{r}
 set.seed(288)
-n<-31 #amt of ppl
-reps<-1000 #amt of reps
+
+#Control group
+n<-31 #Amount of people
+reps<-1000 #Amount of reps
 boot_means<-vector("numeric",reps) #Initialize vector
 
 for(i in 1:reps){ #Bootstrap
@@ -314,21 +288,14 @@ boot_stat<-data %>%
 boot_means[i]<-boot_stat$mean_perf
 }
 
-boot_means<-data_frame(m_perf=boot_means) #To dataframe for ggplot
-
+boot_means<-data_frame(m_perf=boot_means) #To dataframe for limits
 limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #Upper/lower 2.5% for 95% CI
-
-boot_means %>% ggplot(aes(x=m_perf)) + #Histogram w/ CI
-  geom_histogram(binwidth=1, colour="black",fill="grey") + 
-  labs(x="Bootstrap means of vocabulary game performance (/10), control group (n=31)",
-       y="Frequency") +
-  geom_vline(xintercept=limits[1], colour="blue",linetype="dotdash", size=0.8) +  
-  geom_vline(xintercept=limits[2], colour="blue",linetype="dotdash", size=0.8)
 print("Control group, 95% CI") #Visual clarity
 print(limits) #95% Confidence Interval
 
 
-n<-33 #amt of ppl
+#Aerobic group
+n<-33 #Amount of people
 boot_means<-vector("numeric",reps) #Re-initialize vector
 
 for(i in 1:reps){ #Bootstrap
@@ -339,21 +306,14 @@ boot_stat<-data %>%
 boot_means[i]<-boot_stat$mean_perf
 }
 
-boot_means<-data_frame(m_perf=boot_means) #To dataframe for ggplot
-
+boot_means<-data_frame(m_perf=boot_means) #To dataframe for limits
 limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #upper/lower 2.5% for 95% CI
-
-boot_means %>% ggplot(aes(x=m_perf)) + #Histogram w/ CI
-  geom_histogram(binwidth=1, colour="black",fill="grey") + 
-  labs(x="Bootstrap means of vocabulary game performance (/10), aerobic group (n=33)",
-       y="Frequency") +
-  geom_vline(xintercept=limits[1], colour="blue",linetype="dotdash", size=0.8) +  
-  geom_vline(xintercept=limits[2], colour="blue",linetype="dotdash", size=0.8)
 print("Aerobic group, 95% CI") #Visual clarity
 print(limits) #95% Confidence Interval
 
 
-n<-33 #Amt of ppl
+#Anaerobic group
+n<-33 #Amount of people
 boot_means<-vector("numeric",reps) #Re-initialize vector
 
 for(i in 1:reps){ #Bootstrap
@@ -364,169 +324,133 @@ boot_stat<-data %>%
 boot_means[i]<-boot_stat$mean_perf
 }
 
-boot_means<-data_frame(m_perf=boot_means) #To dataframe for ggplot
-
+boot_means<-data_frame(m_perf=boot_means) #To dataframe for limits
 limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #Upper/lower 2.5% for 95% CI
-
-boot_means %>% ggplot(aes(x=m_perf)) + #Histogram w/ CI
-  geom_histogram(binwidth=1, colour="black",fill="grey") + 
-  labs(x="Bootstrap means of vocabulary game performance (/10), anaerobic group (n=33)",
-       y="Frequency") +
-  geom_vline(xintercept=limits[1], colour="blue",linetype="dotdash", size=0.8) +  
-  geom_vline(xintercept=limits[2], colour="blue",linetype="dotdash", size=0.8)
 print("Anaerobic group, 95% CI") #visual clarity
 print(limits) #95% Confidence Interval
 ```
 
-Hypothesis test ($\mu_{ctrl}-\mu_{aerobic}$) for each test
+Simulation-based hypothesis test ($H_0: \mu_{ctrl}-\mu_{aerobic} = 0$, $H_1: \mu_{ctrl}-\mu_{aerobic} \neq 0$) for each test type (memory/card/vocabulary):
 ```{r}
 set.seed(288)
 
 #Memory test
 reps<-1000 #number of reps
 sim_stats<-vector("numeric", length=reps) #Initialize vector
-test_stat = mean(data$memory.game.seconds[data$treatment.group=="Control"])-mean(data$memory.game.seconds[data$treatment.group=="Aerobic"]) #Get test stat 
+#Calculate test statistic
+test_stat <- (mean(data$memory.game.seconds[data$treatment.group=="Control"])
+-mean(data$memory.game.seconds[data$treatment.group=="Aerobic"]))
 
 for (i in 1:reps) { #Simulated re-sampling
   sim<-data %>%
   mutate(treatment.group=sample(treatment.group))
-  
   sim_x_bar<-sim %>%
   group_by(treatment.group) %>%
   summarise(m_perf=mean(memory.game.seconds))
-
-  sim_stats[i]<-sim_x_bar$m_perf[sim_x_bar$treatment.group=="Control"]-sim_x_bar$m_perf[sim_x_bar$treatment.group=="Aerobic"] #Simulated statistic
+  sim_stats[i]<-(sim_x_bar$m_perf[sim_x_bar$treatment.group=="Control"]
+  -sim_x_bar$m_perf[sim_x_bar$treatment.group=="Aerobic"]) #Simulated statistic
 }
 
-diff_m_perf<-data_frame(diff=sim_stats) #convert to dataframe for ggplot
-
-diff_m_perf %>% ggplot(aes(x=diff)) + #Histogram for two-tailed hypothesis test
-  geom_histogram(binwidth=0.5,colour="black", fill="grey") +
-  labs(x="Difference in sample mean of memory test by exercise type (Control-Aerobic)",
-       y="Frequency") +
-  geom_vline(xintercept=abs(test_stat), colour="darkgreen",linetype = "dotdash",size=0.8) +
-  geom_vline(xintercept=-abs(test_stat), colour="darkgreen",linetype = "dotdash",size=0.8)
-diff_m_perf %>% summarize(n=n(), p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat))) #Calculate p-value
-
-
-
+diff_m_perf<-data_frame(diff=sim_stats) #To dataframe
+diff_m_perf %>% summarize(n=n(), #sample size/test statistic/p value
+                          "Test statistic" = test_stat,
+                          p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat)))
 
 #Card recall test
 sim_stats<-vector("numeric", length=reps) #Re-initialize vector
-test_stat = mean(data$cards.10[data$treatment.group=="Control"])-mean(data$cards.10[data$treatment.group=="Aerobic"]) #Calculate test statistic
+#Calculate test statistic
+test_stat <- (mean(data$cards.10[data$treatment.group=="Control"])
+-mean(data$cards.10[data$treatment.group=="Aerobic"]))
 
 for (i in 1:reps) { #Simulated re-sampling
   sim<-data %>%
   mutate(treatment.group=sample(treatment.group))
-  
   sim_x_bar<-sim %>%
   group_by(treatment.group) %>%
   summarise(m_perf=mean(cards.10))
-
-  sim_stats[i]<-sim_x_bar$m_perf[sim_x_bar$treatment.group=="Control"]-sim_x_bar$m_perf[sim_x_bar$treatment.group=="Aerobic"] #Simulated statistic
+  sim_stats[i]<-(sim_x_bar$m_perf[sim_x_bar$treatment.group=="Control"]
+  -sim_x_bar$m_perf[sim_x_bar$treatment.group=="Aerobic"]) #Simulated statistic
 }
 
-diff_m_perf<-data_frame(diff=sim_stats) #To dataframe for ggplot
-
-diff_m_perf %>% ggplot(aes(x=diff)) + #Histogram for 2-tailed hypothesis test
-  geom_histogram(binwidth=1,colour="black", fill="grey") +
-  labs(x="Difference in sample mean of card recall test by exercise type (Control-Aerobic)",
-       y="Frequency") +
-  geom_vline(xintercept=abs(test_stat), colour="darkgreen",linetype = "dotdash",size=0.8) +
-  geom_vline(xintercept=-abs(test_stat), colour="darkgreen",linetype = "dotdash",size=0.8)
-diff_m_perf %>% summarize(n=n(), p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat))) #Calculate p value
-
+diff_m_perf<-data_frame(diff=sim_stats) #To dataframe
+diff_m_perf %>% summarize(n=n(), #sample size/test statistic/p value
+                          "Test statistic" = test_stat,
+                          p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat)))
 
 #Vocabulary recall test
 sim_stats<-vector("numeric", length=reps) #Re-initialize vector
-test_stat = mean(data$vocabulary.20[data$treatment.group=="Control"])-mean(data$vocabulary.20[data$treatment.group=="Aerobic"]) #Calculate test statistic
+#Calculate test statistic
+test_stat <- (mean(data$vocabulary.20[data$treatment.group=="Control"])
+-mean(data$vocabulary.20[data$treatment.group=="Aerobic"]))
 
 for (i in 1:reps) { #Simulated re-sampling
   sim<-data %>%
   mutate(treatment.group=sample(treatment.group))
-  
   sim_x_bar<-sim %>%
   group_by(treatment.group) %>%
   summarise(m_perf=mean(vocabulary.20))
-
-  sim_stats[i]<-sim_x_bar$m_perf[sim_x_bar$treatment.group=="Control"]-sim_x_bar$m_perf[sim_x_bar$treatment.group=="Aerobic"] #Simulated statistic
+  sim_stats[i]<-(sim_x_bar$m_perf[sim_x_bar$treatment.group=="Control"]
+  -sim_x_bar$m_perf[sim_x_bar$treatment.group=="Aerobic"]) #Simulated statistic
 }
 
-diff_m_perf<-data_frame(diff=sim_stats) #To dataframe for ggplot
-
-diff_m_perf %>% ggplot(aes(x=diff)) + #Histogram for 2-tailed hypothesis test
-  geom_histogram(binwidth=1,colour="black", fill="grey") +
-  labs(x="Difference in sample mean of vocabulary recall test by exercise type (Control-Aerobic)",
-       y="Frequency") +
-  geom_vline(xintercept=abs(test_stat), colour="darkgreen",linetype = "dotdash",size=0.8) +
-  geom_vline(xintercept=-abs(test_stat), colour="darkgreen",linetype = "dotdash",size=0.8)
-diff_m_perf %>% summarize(n=n(), p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat))) #Calculate p value
+diff_m_perf<-data_frame(diff=sim_stats) #To dataframe
+diff_m_perf %>% summarize(n=n(), #sample size/test statistic/p value
+                          "Test statistic" = test_stat,
+                          p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat)))
 
 ```
-Hypothesis test ($\mu_{ctrl}-\mu_{anaerobic}$) for each test
+
+Simulation-based hypothesis test ($H_0: \mu_{ctrl}-\mu_{anaerobic} = 0$, $H_1: \mu_{ctrl}-\mu_{anaerobic} \neq 0$) for each test type (memory/card/vocabulary):
 ```{r}
 set.seed(288)
 
 #Memory test
 reps<-1000 #Set # of reps
 sim_stats<-vector("numeric", length=reps) #Initialize vector
-test_stat = mean(data$memory.game.seconds[data$treatment.group=="Control"])-mean(data$memory.game.seconds[data$treatment.group=="Anaerobic"]) #Calculate test statistic
+#Calculate test statistic
+test_stat = mean((data$memory.game.seconds[data$treatment.group=="Control"])
+-mean(data$memory.game.seconds[data$treatment.group=="Anaerobic"]))
 
 for (i in 1:reps) { #Simulated re-sampling
   sim<-data %>%
   mutate(treatment.group=sample(treatment.group))
-  
   sim_x_bar<-sim %>%
   group_by(treatment.group) %>%
   summarise(m_perf=mean(memory.game.seconds))
-  sim_stats[i]<-sim_x_bar$m_perf[sim_x_bar$treatment.group=="Control"]-sim_x_bar$m_perf[sim_x_bar$treatment.group=="Anaerobic"] #Simulated statistic
+  sim_stats[i]<-(sim_x_bar$m_perf[sim_x_bar$treatment.group=="Control"]
+  -sim_x_bar$m_perf[sim_x_bar$treatment.group=="Anaerobic"])#Simulated statistic
 }
-
-diff_m_perf<-data_frame(diff=sim_stats) #To dataframe for ggplot
-
-diff_m_perf %>% ggplot(aes(x=diff)) + #Histogram for 2-tailed hypothesis test
-  geom_histogram(binwidth=0.5,colour="black", fill="grey") +
-  labs(x="Difference in sample mean of memory test by exercise type (Control-Anaerobic)",
-       y="Frequency") +
-  geom_vline(xintercept=abs(test_stat), colour="darkgreen",linetype = "dotdash",size=0.8) +
-  geom_vline(xintercept=-abs(test_stat), colour="darkgreen",linetype = "dotdash",size=0.8)
-diff_m_perf %>% summarize(n=n(), p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat))) #Calculate p-value
-
-
-
-
+diff_m_perf<-data_frame(diff=sim_stats) #To dataframe
+diff_m_perf %>% summarize(n=n(), #sample size/test statistic/p value
+                          "Test statistic" = test_stat,
+                          p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat)))
 
 #Card recall test
 sim_stats<-vector("numeric", length=reps) #Re-initialize vector
-test_stat = mean(data$cards.10[data$treatment.group=="Control"])-mean(data$cards.10[data$treatment.group=="Anaerobic"]) #Calculate test statistic
+#Calculate test statistic
+test_stat = (mean(data$cards.10[data$treatment.group=="Control"])
+-mean(data$cards.10[data$treatment.group=="Anaerobic"])) 
 
 for (i in 1:reps) { #Simulated re-sampling
   sim<-data %>%
   mutate(treatment.group=sample(treatment.group))
-  
   sim_x_bar<-sim %>%
   group_by(treatment.group) %>%
   summarise(m_perf=mean(cards.10))
-
-  sim_stats[i]<-sim_x_bar$m_perf[sim_x_bar$treatment.group=="Control"]-sim_x_bar$m_perf[sim_x_bar$treatment.group=="Anaerobic"] #Simulated statistic
+  sim_stats[i]<-(sim_x_bar$m_perf[sim_x_bar$treatment.group=="Control"]
+  -sim_x_bar$m_perf[sim_x_bar$treatment.group=="Anaerobic"])#Simulated statistic
 }
 
-diff_m_perf<-data_frame(diff=sim_stats) #to dataframe for ggplot
-
-diff_m_perf %>% ggplot(aes(x=diff)) + #Histogram for 2-tailed hypothesis test
-  geom_histogram(binwidth=0.5,colour="black", fill="grey") +
-  labs(x="Difference in sample mean of card recall test by exercise type (Control-Anaerobic)",
-       y="Frequency") +
-  geom_vline(xintercept=abs(test_stat), colour="darkgreen",linetype = "dotdash",size=0.8) +
-  geom_vline(xintercept=-abs(test_stat), colour="darkgreen",linetype = "dotdash",size=0.8)
-diff_m_perf %>% summarize(n=n(), p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat))) #Calculate p-value
-
-
-
+diff_m_perf<-data_frame(diff=sim_stats) #To dataframe
+diff_m_perf %>% summarize(n=n(), #sample size/test statistic/p value
+                          "Test statistic" = test_stat,
+                          p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat)))
 
 #Vocabulary recall test
 sim_stats<-vector("numeric", length=reps)
-test_stat = mean(data$vocabulary.20[data$treatment.group=="Control"])-mean(data$vocabulary.20[data$treatment.group=="Anaerobic"]) #Calculate test statistic
+#Calculate test statistic
+test_stat = (mean(data$vocabulary.20[data$treatment.group=="Control"])
+-mean(data$vocabulary.20[data$treatment.group=="Anaerobic"]))
 
 for (i in 1:reps) { #Simulated re-sampling
   sim<-data %>%
@@ -536,18 +460,13 @@ for (i in 1:reps) { #Simulated re-sampling
   group_by(treatment.group) %>%
   summarise(m_perf=mean(vocabulary.20))
 
-  sim_stats[i]<-sim_x_bar$m_perf[sim_x_bar$treatment.group=="Control"]-sim_x_bar$m_perf[sim_x_bar$treatment.group=="Anaerobic"] #Simulated statistic
+  sim_stats[i]<-(sim_x_bar$m_perf[sim_x_bar$treatment.group=="Control"]
+  -sim_x_bar$m_perf[sim_x_bar$treatment.group=="Anaerobic"])#Simulated statistic
 }
-
-diff_m_perf<-data_frame(diff=sim_stats) #to dataframe for ggplot
-
-diff_m_perf %>% ggplot(aes(x=diff)) + #Histogram for 2-tailed hypothesis test
-  geom_histogram(binwidth=0.5,colour="black", fill="grey") +
-  labs(x="Difference in sample mean of vocabulary recall test by exercise type (Control-Anaerobic)",
-       y="Frequency") +
-  geom_vline(xintercept=abs(test_stat), colour="darkgreen",linetype = "dotdash",size=0.8) +
-  geom_vline(xintercept=-abs(test_stat), colour="darkgreen",linetype = "dotdash",size=0.8)
-diff_m_perf %>% summarize(n=n(), p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat))) #Calculate p-value
+diff_m_perf<-data_frame(diff=sim_stats) #To dataframe
+diff_m_perf %>% summarize(n=n(), #sample size/test statistic/p value
+                          "Test statistic" = test_stat,
+                          p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat)))
 
 ```
 
