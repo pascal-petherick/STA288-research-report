@@ -1,0 +1,105 @@
+Name,Tiredness Level (/10),Previous night's sleep (hrs),7-day low-intensity exercise history (mins),7-day moderate-intensity exercise history (mins),7-day high-intensity exercise history (mins),Treatment group/exercise type,Memory game performance (s),Card recall test performance (/10),Vocabulary recall test performance(/20)
+Hannah Jensen,1,8.25,0,0,0,Control,85,6,10
+Elena Blomgren,1.5,8.25,0,0,2140,Control,65.4,10,15
+Ashley Brown,1,8,1040,0,1760,Control,63.9,10,19
+Jonas Sorensen,1,8.25,0,0,0,Control,72.4,7,16
+Anastasia Ibsen,1,8,0,0,0,Control,52.3,9,20
+Sophia Blomgren,1,7.5,0,0,0,Control,60,9,17
+Arvid Eklund,1,8.25,0,0,0,Control,44.8,8,20
+Conor Connelly,1.5,7.5,0,0,0,Control,102,4,12
+Cariel Solberg,1,8.25,1420,0,0,Control,66.7,9,16
+Arvid Solberg,3,0,0,0,0,Control,57.1,6,16
+Kevin Edwards,1.5,8,0,0,0,Control,62.5,7,15
+Katarina Lenz,N/A,N/A,N/A,N/A,N/A,Control,N/A,N/A,N/A
+Signe Sorensen,2,8.25,0,0,2540,Control,60.6,9,16
+Liliane Gautier,N/A,N/A,N/A,N/A,N/A,Control,N/A,N/A,N/A
+Nanami Kimura,1.5,8,1680,0,0,Control,69.8,10,17
+Cariel Blomgren,1.5,7.75,0,0,0,Control,56.4,8,13
+Lena Olsen,1,8.25,0,0,0,Control,90,8,14
+Mia Yamada,1,7.75,0,350,0,Control,82.6,7,17
+Viggo Sorensen,1,7.75,0,0,0,Control,65.9,3,11
+Derick Hughes,1,7.25,0,0,0,Control,55.9,8,17
+Josh Davies,1,7,0,0,0,Control,61.1,9,19
+Magritte Herbert,1,8,0,0,860,Control,74.7,6,14
+Magritte Morris,1,8.5,0,0,0,Control,68.4,10,11
+Amon Suzuki,2,8.25,0,1270,1270,Control,67.1,9,16
+Leon Sorensen,1.5,8.25,0,1200,1200,Control,39,10,19
+Kimaya Badahur,1.5,8,0,0,0,Control,78.7,6,13
+Brielle (Kaia) Sultana,1,8,0,0,0,Control,53.9,6,13
+Ayann Dhar (Chundhuri),2,8.25,0,0,0,Control,85.8,2,7
+Nayan Khan,1,8.75,0,0,0,Control,41,10,16
+Kirstie Eklund,1,7.25,0,0,0,Control,52.7,10,19
+Helga Svensen,1,8,0,0,0,Control,69.9,6,12
+Akane Morris,1.5,7.75,0,0,1370,Control,64.9,6,16
+Juliette (Alina) Jensen,1,7.5,0,0,0,Control,108,2,4
+Theresa Bager,1,8,1480,0,0,Anaerobic,46.5,9,18
+Noah Morris,1,7.5,0,2210,2210,Anaerobic,84.6,1,5
+Olina Sorensen,1,7.75,0,0,0,Anaerobic,72.3,7,17
+Julie Lund,1,8.25,1130,0,930,Anaerobic,48.2,10,19
+Lauren Connolly,1,7.5,0,0,810,Anaerobic,54.3,8,19
+Hakan Larsen,1,7.25,0,0,0,Anaerobic,64.3,7,12
+Lucia Solberg,1,7.5,0,0,0,Anaerobic,51.7,9,20
+Brenda Sorensen,1,7.75,810,0,1200,Anaerobic,69.7,9,15
+Per Peters,1,8.5,0,0,2080,Anaerobic,87.1,6,16
+Tove Pallesen,1,7,0,0,0,Anaerobic,126,1,5
+Torvald Carlsen,1,7.75,0,0,0,Anaerobic,61.2,7,16
+Sian Morris,1,7.75,0,0,0,Anaerobic,49.1,6,18
+Emilie (Kaia) Chatterjee,1,8,0,0,1360,Anaerobic,76.5,8,14
+Holly Conolly,1,7.75,0,0,0,Anaerobic,90,4,12
+Kashvi Kumar,1,7.5,0,540,0,Anaerobic,73.5,6,16
+Tobias Eklund,1,8,0,0,0,Anaerobic,65.6,8,10
+Raum Carlsen,1,8,2240,0,0,Anaerobic,57.6,9,19
+Remy Connolly ,1,7.75,0,0,0,Anaerobic,90,8,14
+Brenda Erikson,1.5,7.75,0,0,0,Anaerobic,50.9,8,15
+Megane Sato ,1.5,8,0,0,1860,Anaerobic,59.3,9,20
+Seymour Wilson,1,8,0,0,0,Anaerobic,51.4,9,19
+Ryan Kimura ,1,8.5,0,0,0,Anaerobic,56.8,8,18
+Joel Masson,1,8.75,0,1950,1950,Anaerobic,54.3,7,12
+Akane Watanabe ,1,7.25,1540,0,1150,Anaerobic,71.7,8,16
+Christopher Froehlich ,1,7.75,930,0,0,Anaerobic,88.5,7,14
+Juhani Ibsen,1,8.5,0,0,0,Anaerobic,70.9,9,19
+Leon Connolly,1,7.5,0,0,4270,Anaerobic,52.7,10,13
+Sylvia Ritchie,1,7.75,0,0,0,Anaerobic,81.6,5,13
+Hanima Devar ,1,7.5,0,0,0,Anaerobic,72.1,4,17
+Rahas Babu,1,8.25,1190,1350,0,Anaerobic,87.4,6,17
+Rita Voight,1,8,0,0,0,Anaerobic,68.3,10,18
+Miho Collins ,1.5,7.75,0,0,0,Anaerobic,59.1,8,20
+Gretel Solberg,1,7.75,0,0,0,Anaerobic,44.6,10,17
+Nicolas Wilson ,2,8.25,0,0,0,Aerobic,76.3,6,14
+Killian McCarthy,1,7.5,0,1370,1370,Aerobic,50.5,8,11
+Kaia Ramanujan,1,8,1230,1230,2590,Aerobic,38.2,9,20
+Sarah Solberg ,1.5,7.5,0,0,0,Aerobic,50.9,9,16
+Nabhi Datta ,1,7.5,1390,0,0,Aerobic,70.7,9,9
+Ragnar Olsen,1,8.25,0,0,0,Aerobic,75.1,7,13
+Shane Sato,1,7.75,0,0,0,Aerobic,102,2,3
+Benjamin Wilson,1,7.75,0,0,0,Aerobic,52.4,7,15
+Simon (Marshall) Sorensen,1,7.5,0,0,2310,Aerobic,80.4,6,10
+Jeneve Solberg,1,7.25,0,0,0,Aerobic,49.8,10,19
+Pernille Carlsen,1.5,7.25,0,0,0,Aerobic,58.6,9,18
+Dean Price,1,7.5,0,0,0,Aerobic,71.1,10,15
+Emma Connolly,1,7.75,0,0,0,Aerobic,81.2,9,17
+Jana Bager,1,8.25,0,750,0,Aerobic,67.4,9,19
+Agda Carlsen,1,8,850,0,1250,Aerobic,58.5,8,18
+Grace Price,1.5,8.25,0,0,0,Aerobic,45.4,9,18
+Manan Mardia,1.5,8.5,0,0,0,Aerobic,49.3,7,18
+Kerstin Thorn,1,7.75,0,0,0,Aerobic,59.6,7,15
+Chanda Babu,2,7.5,0,0,1090,Aerobic,45.3,10,16
+Gabrielle (Chanha) Ramanan,1,7.5,0,0,0,Aerobic,44.2,10,19
+Axel Sorensen,1,7.75,0,0,0,Aerobic,68.8,9,13
+Vanessa Eklund,1.5,8.25,1190,0,1380,Aerobic,54.1,10,19
+Nicolas (Tom) Edwards,1.5,7.5,0,0,0,Aerobic,47.1,10,18
+Sarah Bager,1,8.5,0,0,0,Aerobic,62.3,10,17
+Gerald Reinhardt,1,8,0,1390,1390,Aerobic,47.2,9,19
+Lynnea Ibsen,1,8.25,0,0,0,Aerobic,49.4,10,16
+Lomash Kaur,2,8.75,2440,0,0,Aerobic,47.7,10,19
+Ragnar Carlsen,1,8,2340,0,0,Aerobic,44.4,7,19
+Gildas Gaillard,1,8.25,1300,0,0,Aerobic,65.1,9,16
+Erika Eklund,1,8,0,0,0,Aerobic,54,9,18
+Ole Ibsen,1,8.25,0,0,1310,Aerobic,84.9,8,13
+Ava Collins,1,7.75,0,0,0,Aerobic,51,8,15
+Lars Solberg,1,7.75,0,0,0,Aerobic,83.8,5,16
+
+Data collected on the left of treatment group was prior to treatment application.
+Data collected on the right of treatment group was post-application of treatment. 
+Data collected prior to exercise consists of name and survey information, including exercise (in minutes) in the last 7 days, perceived tiredness, and hours of sleep the previous night.
+Data collected after exercise consists of test performance for each of the three tests, including memory game, card recall test, and vocabulary recall test.

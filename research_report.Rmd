@@ -1,4 +1,4 @@
-# Title here.
+# Title
 our names here, with the contributions/sections that each of us lead.
 
 
@@ -261,7 +261,7 @@ for(i in 1:reps){ #Bootstrap
 boot_stat<-data %>%
   filter(treatment.group=="Anaerobic") %>%
   sample_n(size=n,replace=TRUE) %>%
-  summarise(mean_perf=mean(vocabulary.20[treatment.group=="Anaerobic"]))
+  summarise(mean_perf=mean(cards.10[treatment.group=="Anaerobic"]))
 boot_means[i]<-boot_stat$mean_perf
 }
 
@@ -470,6 +470,71 @@ diff_m_perf %>% summarize(n=n(), #sample size/test statistic/p value
 
 ```
 
+Simulation-based hypothesis test ($H_0: \mu_{aerobic}-\mu_{anaerobic} = 0$, $H_1: \mu_{aerobic}-\mu_{anaerobic} \neq 0$) for each test type (memory/card/vocabulary):
+```{r}
+set.seed(288)
+
+#Memory test
+reps<-1000 #Set # of reps
+sim_stats<-vector("numeric", length=reps) #Initialize vector
+#Calculate test statistic
+test_stat = mean((data$memory.game.seconds[data$treatment.group=="Aerobic"])
+-mean(data$memory.game.seconds[data$treatment.group=="Anaerobic"]))
+
+for (i in 1:reps) { #Simulated re-sampling
+  sim<-data %>%
+  mutate(treatment.group=sample(treatment.group))
+  sim_x_bar<-sim %>%
+  group_by(treatment.group) %>%
+  summarise(m_perf=mean(memory.game.seconds))
+  sim_stats[i]<-(sim_x_bar$m_perf[sim_x_bar$treatment.group=="Aerobic"]
+  -sim_x_bar$m_perf[sim_x_bar$treatment.group=="Anaerobic"])#Simulated statistic
+}
+diff_m_perf<-data_frame(diff=sim_stats) #To dataframe
+diff_m_perf %>% summarize(n=n(), #sample size/test statistic/p value
+                          "Test statistic" = test_stat,
+                          p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat)))
+
+#Card recall test
+sim_stats<-vector("numeric", length=reps) #Re-initialize vector
+#Calculate test statistic
+test_stat = mean((data$cards.10[data$treatment.group=="Aerobic"])
+-mean(data$cards.10[data$treatment.group=="Anaerobic"]))
+
+for (i in 1:reps) { #Simulated re-sampling
+  sim<-data %>%
+  mutate(treatment.group=sample(treatment.group))
+  sim_x_bar<-sim %>%
+  group_by(treatment.group) %>%
+  summarise(m_perf=mean(cards.10))
+  sim_stats[i]<-(sim_x_bar$m_perf[sim_x_bar$treatment.group=="Aerobic"]
+  -sim_x_bar$m_perf[sim_x_bar$treatment.group=="Anaerobic"])#Simulated statistic
+}
+diff_m_perf<-data_frame(diff=sim_stats) #To dataframe
+diff_m_perf %>% summarize(n=n(), #sample size/test statistic/p value
+                          "Test statistic" = test_stat,
+                          p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat)))
+
+#Vocabulary Recall test
+sim_stats<-vector("numeric", length=reps) #Re-initialize vector
+#Calculate test statistic
+test_stat = mean((data$vocabulary.20[data$treatment.group=="Aerobic"])
+-mean(data$vocabulary.20[data$treatment.group=="Anaerobic"]))
+
+for (i in 1:reps) { #Simulated re-sampling
+  sim<-data %>%
+  mutate(treatment.group=sample(treatment.group))
+  sim_x_bar<-sim %>%
+  group_by(treatment.group) %>%
+  summarise(m_perf=mean(vocabulary.20))
+  sim_stats[i]<-(sim_x_bar$m_perf[sim_x_bar$treatment.group=="Aerobic"]
+  -sim_x_bar$m_perf[sim_x_bar$treatment.group=="Anaerobic"])#Simulated statistic
+}
+diff_m_perf<-data_frame(diff=sim_stats) #To dataframe
+diff_m_perf %>% summarize(n=n(), #sample size/test statistic/p value
+                          "Test statistic" = test_stat,
+                          p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat)))
+```
 ### Conclusions 
 
 etc
