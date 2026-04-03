@@ -101,5 +101,5 @@ Lars Solberg,1,7.75,0,0,0,Aerobic,83.8,5,16
 
 Data collected on the left of treatment group was prior to treatment application.
 Data collected on the right of treatment group was post-application of treatment. 
-Data collected prior to exercise consists of name and survey information, including exercise (in minutes) in the last 7 days, perceived tiredness, and hours of sleep the previous night.
-Data collected after exercise consists of test performance for each of the three tests, including memory game, card recall test, and vocabulary recall test.
+Data collected prior to exercise consists of name and survey information, including total number of minutes of exercise in the last 7 days, perceived tiredness, and hours of sleep the previous night.
+Data collected after exercise consists of test performance for each of the three tests, including memory game (timed test), card recall test (out of 10 cards), and vocabulary recall test (out of 20 words).
