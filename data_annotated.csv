@@ -99,7 +99,7 @@ Ole Ibsen,1,8.25,0,0,1310,Aerobic,84.9,8,13
 Ava Collins,1,7.75,0,0,0,Aerobic,51,8,15
 Lars Solberg,1,7.75,0,0,0,Aerobic,83.8,5,16
 
-Data collected on the left of treatment group was prior to treatment application.
-Data collected on the right of treatment group was post-application of treatment. 
-Data collected prior to exercise consists of name and survey information, including total number of minutes of exercise in the last 7 days, perceived tiredness, and hours of sleep the previous night.
-Data collected after exercise consists of test performance for each of the three tests, including memory game (timed test), card recall test (out of 10 cards), and vocabulary recall test (out of 20 words).
+# Data collected on the left of treatment group was prior to treatment application.
+# Data collected on the right of treatment group was post-application of treatment. 
+# Data collected prior to exercise consists of name and survey information, including total number of minutes of exercise in the last 7 days, perceived tiredness, and hours of sleep the previous night.
+# Data collected after exercise consists of test performance for each of the three tests, including memory game (timed test), card recall test (out of 10 cards), and vocabulary recall test (out of 20 words).
