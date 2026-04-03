@@ -4,7 +4,7 @@ output:
   html_document: default
 ---
 
-# Differential Effects are Absent During Acute Aerobic and Anaerobic Exercise on Working Memory in Older Adults
+# Significant Differential Effects of Acute Aerobic and Anaerobic Exercise on Working and Short-term Memory not Present in Older Adults
 
 *Anahita Goodarzi, Pascal Petherick, Alexandra Tenn, Erin Wills*
 
