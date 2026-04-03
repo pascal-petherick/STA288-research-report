@@ -1,40 +1,666 @@
-# Title
-our names here, with the contributions/sections that each of us lead.
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Differential Effects are Absent During Acute Aerobic and Anaerobic Exercise on Working Memory in Older Adults
+
+*Anahita Goodarzi, Pascal Petherick, Alexandra Tenn, Erin Wills*
 
 
-### Introduction
+**Author Contributions**
 
-Introduction...
+PP: Wrote/formatted results; researched for introduction; determined sampling procedure.
+
+EW: Drafted sampling; generated visual/numerical summaries; contributed to statistical analyses of data; formatted and generated RMD file. 
+
+AT: Drafted introduction, discussion, references; contributed to writing of statistical analysis; searched and summarized relevant papers
+
+AG : Drafted methods, materials, statistical analysis; wrote/refined results.
 
 
-### Materials and Methods
+## Introduction
 
-And here we write materials and methods...
+  This study examines the immediate effects of acute aerobic and anaerobic exercise on working and short-term memory in adults aged 66 and older. As individuals age, the brain undergoes structural and functional changes, including accelerated degeneration of white matter beginning in early aging (around age 66), which contributes to declines in cognitive function, particularly memory (Mousley et al., 2025; Deary et al., 2009). Memory impairments can negatively affect daily functioning and overall quality of life, with deficits observed across long-term, short-term, and working memory domains (Deary et al., 2009). While regular physical activity has been shown to mitigate long-term cognitive decline, cognition in older adults is not static and can fluctuate between periods of optimal functioning and temporary impairment, often described as “good days” and “bad days” (Rockwood et al., 2014). This raises an important question: can acute exercise improve memory performance during periods of transient cognitive difficulty?
+
+  Despite strong evidence supporting the long-term cognitive benefits of exercise, its immediate effects on memory, particularly in older adults, remain unclear. Studies in younger populations suggest that both aerobic and anaerobic exercise can improve working memory and attention, with aerobic exercise showing slightly greater benefits (Erwin & Schreiber, 2024). However, a systematic review by McSween et al. (2019) highlights the limited number and overall quality of studies examining acute exercise effects, emphasizing the need for more statistically rigorous research in this area. Understanding whether exercise can provide immediate cognitive benefits is important, as it may offer a practical and accessible intervention for managing short-term fluctuations in cognitive function among aging populations.
+
+  This study aimed to investigate the comparative effects of acute aerobic and anaerobic exercise on working and short-term memory in adults aged 66 and older. Based on prior evidence demonstrating cognitive benefits of exercise, particularly in younger populations where aerobic exercise has shown slightly greater improvements in working memory, we hypothesized that both exercise groups would outperform the control group, with the aerobic group demonstrating the greatest improvement in mean performance. Contrary to this hypothesis, no statistically significant differences were observed between treatment groups across all memory outcomes.
 
 
-### Results
 
-Package import:
-```{r}
+## Materials and Methods
+
+### Sampling and Study Design
+
+  To test this hypothesis, we conducted an experiment comparing the effects of aerobic and anaerobic exercise on memory performance across three treatment groups: aerobic, anaerobic, and control.
+
+  Participants were selected using a stratified random sampling approach. Three villages were randomly chosen from each island, and birth records from years 300–311 were used to randomly select 11 participants per village, yielding a total sample of 99 participants aged 66 years and older. Individuals who were deceased or declined participation were replaced through repeated random selection. This approach improved representativeness, although some selection bias may remain.
+
+```{r include=FALSE}
+Ironbard_cities=c("Vardo", "Hofn", "Helvig", "Bjurholm", "Blonduos",
+                  "Helluland")
+
+Providence_cities=c("Hayarano", "Shinobi", "Biruwa", "Takazaki",
+                    "Akkeshi", "Kiyobico", "Reading", 
+                    "Nelson", "Arcadia")
+
+Bonne_Sante_cities=c("Nidoma", "Talu", "Riroua", "Pauma",
+                     "Valais", "Gordes", "Maeva", "Kinsale", 
+                     "Colmar", "Vaiku", "Mahuti", "Eden")
+set.seed(288)
+srs_Ironbard_cities=sample(Ironbard_cities, 3)
+srs_Providence_cities=sample(Providence_cities, 3)
+srs_Bonne_Sante_cities=sample(Bonne_Sante_cities, 3)
+sampled_cities=c(srs_Ironbard_cities,
+                 srs_Providence_cities,
+                 srs_Bonne_Sante_cities)
+print(sampled_cities)
+birth_records <- read.csv("birth_records.csv")
+
+# we now have 3 cities from each island stored in variable sampled_cities.  
+# Time to take an SRS of people who are 66 or older from each city's records.
+
+Blonduos_birth_records=birth_records$Blonduos[1:108]
+
+Blonduos_sample_11=sample(Blonduos_birth_records, 11)
+# manually checking how many of these people are alive,
+# If they are alive, checking if they consent to participate in the study.
+
+# Hannah Jensen: alive and consents! X
+# Sakura Collins: alive but declined
+# Sven Blomgren: deceased
+# Elena Blomgren: alive and consented! X
+# Dean Price: ailve and consented. X
+# Ashley Brown, alive and consented X
+# Olson Solber: deceased
+# Ian Sato: deceased
+# Maximilian Solberg: alive but declined.
+# Brenda Sorenson: alive and consented X
+# Emma McCarthy: deceased.
+
+# obtained 5/11 participants. Need to re-sample 6 more people.
+# removing the previous 11 values from the vector:
+
+elements_to_remove=c("22/300 Hannah Jensen", "11/309 Sakura Collins", 
+                     "13/303 Sven Blomgren",
+  "19/302 Elena Blomgren", "03/306 Dean Price", "04/307 Ashley Brown", 
+  "12/300 Olson Solberg", "14/309 Ian Sato", "22/308 Maximilian Solberg", 
+  "13/301 Brenda Sorensen", "13/306 Emma McCarthy")
+
+Blonduos_birth_records <- Blonduos_birth_records[!(Blonduos_birth_records %in% elements_to_remove)]
+
+Blonduos_sample_24=sample(Blonduos_birth_records, 24)
+#print(Blonduos_sample_24)
+
+# Gunnar Solberg: deceased
+# Sian Morris: alive and consented (6/11)
+# Jana Bager: consented (7/11)
+# Agda Bager: deceased 
+# Misaki Price: deceased
+# Kaito Sato: deceased
+# Pierrick Solberg: deceased
+# Ella Solberg: declined consent
+# Axel Sorensen: consented (8/11)
+# Christian Sorensen: deceased
+# Dane Carlsen: deceased
+# Jonas Sorensen: consented (9/11)
+# Christopher Lenz: deceased
+# Leira Carlsen: deceased
+# Matthias Solberg: deceased
+# Tyr Solberg: declined consent
+# Jessica Morris: deceased
+# Lucia Ibsen: deceased
+# Anastasia Ibsen: consented (10/11)
+# Michelle Price: declined consent
+# Jamie Morris: deceased
+# Tate Yamada: deceased
+# Megan Sato: deceased
+# Ragnar Carlsen: consented. (11/11)
+Blonduos_sample = c(
+"Hannah Jensen",
+"Elena Blomgren",
+"Dean Price",
+"Ashley Brown",
+"Brenda Sorensen",
+"Sian Morris",
+"Jana Bager",
+"Axel Sorensen",
+"Jonas Sorensen",
+"Anastasia Ibsen",
+"Ragnar Carlsen"
+)
+
+#More streamlined method of sampling with the same outcome
+#Increasing n in sample() does not change the seed, so we can increase n
+#to sample more people incrementally without repeatedly making removal vectors
+#for dead/declining participants (since the sample is w/o replacement)
+#Discovered that this was possible later, hence why not all cities use it
+Vardo_birth_records = birth_records$Vardo[1:176] 
+
+Vardo_sample_29=sample(Vardo_birth_records, 29)
+
+# print(Vardo_sample_29)
+
+# Sian Wilson: declined
+# Christopher Froehlich: consented (1/11)
+# Manan Mardia: consented (2/11)
+# Harold Jensen: deceased
+# Lucia Solberg: consented (3/11)
+# Sophia Blomgren: consented (4/11)
+# Martina Lindner: deceased
+# Tove Pallesen: consented (5/11)
+# Per Peters: consented (6/11)
+# Lucy Collins: deceased
+# Emma Connolly: consented (7/11)
+# Tomas Carlsen: deceased
+# Sascha Guenther: deceased
+# Arvid Eklund: consented (8/11)
+# Sten Solberg: deceased
+# Karen Madsen: deceased
+# Conor Connelly: consented (9/11)
+# Raphael Sorensen: deceased
+# Siobhan Collins: deceased
+# Jessica McCarthy: deceased
+# Grace Price: consented (10/11)
+# Sophia Carlsen: deceased
+# Sigrid Blomgren: deceased
+# David Eklund: deceased
+# Riko Jackson: deceased
+# Ella Medsen: deceased
+# James Brown: declined
+# Natalia Guenther: deceased
+# Vanessa Eklund: consented!
+
+Vardo_sample <- c(
+  "Christopher Froehlich",
+  "Mana Mardia",
+  "Lucia Solberg",
+  "Sophia Blomgren",
+  "Tove Pallesen",
+  "Per Peters",
+  "Emma Connolly",
+  "Arvid Eklund",
+  "Conor Connelly",
+  "Grace Price",
+  "Vanessa Eklund"
+)
+```
+```{r include=FALSE}
+set.seed(288)
+Helvig_birth_records=birth_records$Helvig[1:164]
+sample(Ironbard_cities, 3) #redundant sampling for github issue
+sample(Providence_cities, 3)
+sample(Bonne_Sante_cities, 3)
+Helvig_sample_11=sample(Helvig_birth_records, 11)
+# print(Helvig_sample_11)
+#"17/300 Nanami Collins" Declined   
+#"27/301 Asuka Brown"      
+#"19/304 Karsten Hartmann"
+#"16/305 Shiori Wilson"    
+#"17/301 Lynnea Ibsen" Consented    
+#"28/302 Naoki Edwards"  
+#"11/303 Miki Moore"       
+#"21/306 Lucy McCarthy"    
+#"25/303 Cariel Solberg" Consented  
+#"15/303 Nils Carlsen"     
+#"23/309 Anund Olsen"
+
+#2/11
+
+elements_to_remove <- c("17/300 Nanami Collins", "27/301 Asuka Brown", "19/304 Karsten Hartmann", "16/305 Shiori Wilson", "17/301 Lynnea Ibsen", "28/302 Naoki Edwards", "11/303 Miki Moore", "21/306 Lucy McCarthy", "25/303 Cariel Solberg", "15/303 Nils Carlsen", "23/309 Anund Olsen")
+
+Helvig_birth_records <- Helvig_birth_records[!(Helvig_birth_records %in% elements_to_remove)]
+
+Helvig_sample_24 <- sample(Helvig_birth_records, 31)
+print(Helvig_sample_24)
+#"28/310 Rita Voigt" Consented
+# Arvid Solberg Consented
+# Kevin Edwards Consented
+# Raum Carlsen Consented
+# Olina Sorensen Consented
+# Pernille Carlsen consented
+# Gerald Reinhardt Consented
+# Katarina Lenz Consented
+# Signe Sorensen Consented
+#11/11
+
+#Final Helvig Sample
+#"17/301 Lynnea Ibsen"
+#"25/303 Cariel Solberg"
+#"28/310 Rita Voigt" Consented
+# 04/304 Arvid Solberg Consented
+# 17/309 Kevin Edwards Consented
+# 14/310 Raum Carlsen Consented
+# 18/301 Olina Sorensen Consented
+# 15/304 Pernille Carlsen consented
+# 13/304 Gerald Reinhardt Consented
+# 24/309 Katarina Lenz Consented
+# 13/305 Signe Sorensen consented.
+
+Helvig_sample <- c(
+  "Lynnea Ibsen",
+  "Cariel Solberg",
+  "Rita Voigt",
+  "Arvid Solberg",
+  "Kevin Edwards",
+  "Raum Carlsen",
+  "Olina Sorensen",
+  "Pernille Carlsen",
+  "Gerald Reinhardt",
+  "Katarina Lenz",
+  "Signe Sorensen")
+```
+```{r include=FALSE}
+set.seed(288)
+Biruwa_birth_records=birth_records$Biruwa[1:118]
+sample(Ironbard_cities, 3) #Redundant sampling to fix a weird error!!
+sample(Providence_cities, 3)
+sample(Bonne_Sante_cities, 3)
+Biruwa_sample_11=sample(Biruwa_birth_records, 11)
+# print(Biruwa_sample_11)
+
+# Liliane Gautier
+# Torvald Carlsen
+# Ryan Kimura
+
+#3/11
+
+elements_to_remove=c("22/300 Gunnar Sorensen", "14/311 Tyra Blomgren", "24/308 Liliane Gautier", "18/309 Max Leger", "24/309 Torvald Carlsen", "23/302 Ole Bager", "16/300 Ryan Kimura", "28/300 Jackson Wilson", "23/303 Chloe Collins", "01/307 Mayu Morris", "13/310 Rin Connolly")
+
+Biruwa_birth_records <- Biruwa_birth_records[!(Biruwa_birth_records %in% elements_to_remove)]
+
+Biruwa_sample_24=sample(Biruwa_birth_records, 35) 
+print(Biruwa_sample_24)
+
+# Sarah Bager
+# Killian McCarthy
+# Nanami Kimura
+# Tobias Eklund
+# Remy Connolly
+# Cariel Blomgren
+# Chanda Babu
+# Sarah Solberg
+#11/11
+
+#Final Biruwa sample:
+# 24/308 Liliane Gautier
+# 24/309 Torvald Carlsen
+# 16/300 Ryan Kimura
+# 21/300 Sarah Bager
+# 23/310 Killian McCarthy
+# 11/306 Nanami Kimura
+# 18/307 Tobias Eklund
+# 04/306 Remy Connolly
+# 18/305 Cariel Blomgren
+# 24/308 Chanda Babu
+# 24/304 Sarah Solberg
+
+Biruwa_sample <- c("Liliane Gautier",
+                  "Torvald Carlsen",
+                  "Ryan Kimura",
+                  "Sarah Bager",
+                  "Killian McCarthy",
+                  "Nanami Kimura",
+                  "Tobias Eklund",
+                  "Remy Connolly",
+                  "Cariel Blomgren",
+                  "Chanda Babu",
+                  "Sarah Solberg")
+```
+```{r include=FALSE}
+set.seed(288)
+Shinobi_birth_records <- c(birth_records$Shinobi[1:170])
+Shinobi_sample_30 <- sample(Shinobi_birth_records, 30)
+#print(Shinobi_sample_30)
+
+# 05/312 Juhani Ibsen 
+# 20/315 Matthew Brown DECEASED 
+# 09/306 Lena Olsen 
+# 19/319 Mia Yamada
+# 06/300 Elsa Thorn DECEASED
+# 22/318 Ophelia Eklund DECEASED 
+# 08/318 Kashvi Kumar 
+# 07/301 Viggo Sorensen
+# 26/300 Ava Collins 
+# 14/305 Simon (Marshall) Sorensen
+# 24/314 Taylor Morris DECEASED
+# 06/308 Zachary Kimura DECEASED 
+# 02/312 Michelle Moore DECLINED
+# 01/303 Akane Watanabe
+# 23/316 Shane Sato 
+# 13/311 Kerstin Thorn 
+# 09/319 Amy Brown DECLINED 
+# 16/303 Desmond Connolly DECEASED 
+# 22/318 Ophelia Eklund DECEASED 
+# 11/318 Hiro Kimura DECLINED 
+# 27/318 Benjamin Wilson
+
+Shinobi_sample <- c(
+  "Juhani Ibsen",
+  "Lena Olsen",
+  "Mia Yamada",
+  "Kashvi Kumar",
+  "Viggo Sorensen",
+  "Ava Collins",
+  "Simon (Marshall) Sorensen",
+  "Akane Watanabe",
+  "Shane Sato",
+  "Kerstin Thorn",
+  "Benjamin Wilson")
+
+```
+```{r include=FALSE}
+Reading_birth_records <- birth_records$Reading[1:173]
+set.seed(288)
+Reading_sample_50 <- sample(Reading_birth_records, 50)
+print(Reading_sample_50)
+
+# 20/302 Lars Solberg
+# 05/302 Derick Hughes
+# 07/301 Bronwyn Wilson DECEASED 
+# 19/302 Fabienne Fournier DECEASED 
+# 02/301 Samuel Eklund DECLINED 
+# 22/302 Adrienne Hughes DECEASED 
+# 17/302 Sara Muir DECEASED 
+# 19/302 Theresa Bager
+# 22/301 Saika Connolly DECEASED 
+# 06/302 Raphael Sorensen DECEASED 
+# 09/302 Jocelyne Lacroix DECEASED 
+# 11/301 Noah Morris
+# 14/302 Josh Davies
+# 20/302 Mia Solberg DECEASED 
+# 14/302 Jeneve Solberg
+# 03/302 Sarah Regan DECEASED 
+# 09/301 Gretel Solberg
+# 28/302 Emma Bager DECEASED 
+# 01/302 Kirstie Solberg DECLINED 
+# 10/301 Takahiro McCarthy DECEASED 
+# 17/301 Liliane Dupuy DECEASED 
+# 27/300 Raphael Solberg DECEASED 
+# 24/302 Lyn Bell DECEASED 
+# 24/308 Risa Nakajima DECEASED 
+# 04/309 Lomash Kaur
+# 18/308 Maximilian Blomgren DECLINED 
+# 22/302 Adrienne Hughes DECEASED 
+# 14/308 Ragnar Olsen
+# 18/308 Barbara Meier DECEASED 
+# 23/308 Joel Masson 
+# 06/308 Sylvia Ritchie
+Reading_sample <- c("Lars Solberg",
+                    "Derick Hughes",
+                    "Theresa Bager",
+                    "Noah Morris",
+                    "Josh Davies",
+                    "Jeneve Solberg",
+                   "Gretel Solberg",
+                    "Lomash Kaur",
+                    "Ragnar Olsen",
+                    "Joel Masson",
+                    "Sylvia Ritchie")
+```
+```{r include=FALSE}
+#Bonne Sante Cities - Talu, Eden, Valais
+set.seed(288)
+Talu_birth_records = c(birth_records$Talu[1:220])
+Talu_sample_31 <- sample(Talu_birth_records, 31) #Increased in a stepwise fashion until the correct amount is obtained
+# print(Talu_sample_31)
+# 16/304 Chantel Lund: DEAD
+# 05/306 Saeed Laha: DEAD
+# 20/309 Chahel Lingutla: DECLINED
+# 19/302 Rupert Wilson: DECLINED
+# 19/308 Brenda Erickson: CONSENTED (1/11)
+# 04/300 Gala Eklund: DEAD
+# 03/308 Gildas Gaillard: CONSENTED (2/11)
+# 25/306 Nicolas Wilson: CONSENTED (3/11)
+# 03/308 Charles Jensen: DEAD
+# 27/300 Auguste Lund: DEAD 
+# 18/300 Hailey Edwards: DECLINED
+# 12/302 Sophia Watanabe: DEAD
+# 13/305 Rachelle Carlsen: DEAD 
+# 18/306 Sebastian Svendsen: DEAD
+# 27/301 Megane Sato: CONSENTED (4/11)
+# 09/303 Samuel Suzuki: DEAD
+# 28/303 Erika Eklund: CONSENTED (5/11)
+# 26/306 Grace Brown: DEAD
+# 16/304 Magritte Herbert: CONSENTED (6/11)
+# 10/304 Frederique Jensen: DEAD
+# 06/308 Felix Blomgren: DEAD
+# 13/301 Magritte Morris: CONSENTED (7/11)
+# 20/308 King Suzuki: DEAD
+# 06/308 Harvey Dupont: DEAD
+# 14/310 Danielle Morel: DEAD
+# 14/307 Amon Suzuki: CONSENTED (8/11)
+# 26/302 Manuel Levy: DECLINED
+# 23/310 Regis Lemoine: DECLINED
+# 03/304 Leon Sorensen: CONSENTED (9/11)
+# 20/311 Hakan Larsen: CONSENTED (10/11)
+# 14/310 Rahas Babu: CONSENTED (11/11)
+Talu_sample <- c("Brenda Erickson",
+                 "Gildas Gaillard",
+                 "Nicolas Wilson",
+                 "Megane Sato",
+                 "Erika Eklund",
+                 "Magritte Herbert",
+                 "Magritte Morris",
+                 "Amon Suzuki",
+                 "Leon Sorensen",
+                 "Hakan Larsen",
+                 "Rahas Babu")
+```
+```{r include=FALSE}
+#Bonne Sante Cities - Talu, Eden, Valais
+set.seed(288)
+Eden_birth_records <- birth_records$Eden[1:303]
+Eden_sample_42 <- sample(Eden_birth_records,42)
+# print(Eden_sample_42)
+# 23/304 Gabrielle (Chanha) Ramanan: CONSENTED (1/11)
+# 02/308 Seymour (Nathan) Wilson: CONSENTED (2/11)
+# 07/303 Fabrice Dupont: DEAD
+# 10/307 Nicolas (Tom) Edwards: CONSENTED (3/11)
+# 22/310 Rithul Maharaj: DEAD
+# 16/306 Maalai Mardia: DEAD
+# 04/306 Yuval Devar: DEAD
+# 11/308 Anna Pallesen: DEAD
+# 04/310 Marie Murphy: DEAD 
+# 05/301 Nico Lund: DEAD
+# 23/300 Beatrice Solberg: DEAD
+# 20/309 Erin Morris: DEAD
+# 11/302 Yvonne Petit: DEAD
+# 07/302 Laasya Srinivasan: DEAD
+# 12/307 Hanima Devar: CONSENTED (4/11)
+# 26/306 Ryan Jackson: DEAD
+# 13/308 Teala Thorn: DEAD
+# 07/306 Emilie (Kaia) Chatterjee: CONSENTED (5/11)
+# 09/304 Yuval Kulkarni: DEAD 
+# 21/308 Kimaya Badahur: CONSENTED (6/11)
+# 11/311 Keya Srinivasan: DEAD
+# 18/304 Jacques Wilson: DEAD
+# 20/308 Bimala Puri: DEAD
+# 09/302 Elie Murphy: DEAD
+# 17/311 Nihal Puri: DEAD
+# 03/310 Felix Bager: DEAD
+# 25/306 Brielle (Kaia) Sultana: CONSENTED (7/11)
+# 06/309 Ayann Chunduri: CONSENTED (8/11)
+# 04/310 Remy Bager: DEAD
+# 27/303 Momoko Edwards: DEAD
+# 27/303 Justin Herbert: DEAD
+# 12/302 Beau Solberg: DEAD
+# 12/304 Rushil Devar: DEAD
+# 06/308 Shauna Jackson: DECLINED
+# 04/301 Mizuki Edwards: DEAD
+# 18/304 Kaia Ramanujan: CONSENTED (9/11)
+# 04/303 Conor Wilson: DEAD
+# 05/306 Elle Dupont: DEAD
+# 04/311 Nayan Khan: CONSENTED (10/11)
+# 25/307 Nabhi Datta: CONSENTED (11/11)
+Eden_sample <- c("Gabrielle (Chanha) Ramanan",
+                 "Seymour (Nathan) Wilson",
+                 "Nicolas (Tom) Edwards",
+                 "Hanima Devar",
+                 "Emilie (Kaia) Chatterjee",
+                 "Kimaya Badahur",
+                 "Brielle (Kaia) Sultana",
+                 "Ayann Chunduri",
+                 "Kaia Ramanujan",
+                 "Nayan Khan",
+                 "Nabhi Datta")
+```
+```{r include=FALSE}
+#Bonne Sante Cities - Talu, Eden, Valais
+set.seed(288)
+Valais_birth_records <- birth_records$Valais[1:103]
+Valais_sample_45 <- sample(Valais_birth_records, 45)
+# print(Valais_sample_45)
+# 13/308 Melissa Wilson: DEAD
+# 21/302 Viktoria Sorensen: DEAD
+# 10/303 Kirstie Eklund: CONSENTED (1/11)
+# 21/301 Robert Moore: DEAD
+# 06/300 Emy Brown: DECLINED
+# 20/300 Paige Watanabe: DEAD
+# 09/300 Helga Svendsen: CONSENTED (2/11)
+# 02/311 King Wilson: DEAD
+# 26/300 Miho Collins: CONSENTED (3/11)
+# 18/300 Patricia Edwards: DEAD
+# 27/302 Renee (Ayaka) Yamada: DEAD
+# 12/302 Nadege Leclerc: DEAD
+# 01/305 Lauren Connolly: CONSENTED (4/11)
+# 24/305 Camille (Jeneve) Bager: DECLINED 
+# 10/300 Sarah Morris: DEAD
+# 07/301 Mike Yamada: DECLINED
+# 12/305 Akane Morris: CONSENTED (5/11)
+# 01/302 Maika Solberg: DEAD
+# 22/301 Finlay Brown: DEAD
+# 07/301 Emma Blomgren: DEAD
+# 16/303 Philipp Sorensen: DEAD
+# 17/300 Isobel Brown: DEAD
+# 27/303 Julien Chevallier: DEAD
+# 09/304 Alicia Jones: DEAD
+# 18/307 Leon Connolly: CONSENTED (6/11)
+# 21/302 Matthias Sorensen: DEAD
+# 02/303 Ross Connolly: DEAD
+# 24/304 Rida Jensen: DECLINED
+# 28/303 Nicole Solberg: DEAD
+# 03/302 Sophie Hall: DEAD
+# 24/305 Florence (Kaya) Bager: DECLINED
+# 13/302 Percy Blomgren: DEAD
+# 11/304 Ole Ibsen: CONSENTED (7/11)
+# 20/303 Tristan (Juhani) Sorensen: DECLINED
+# 27/302 Julie Lund: CONSENTED (8/11)
+# 02/303 Aidan Brown: DECLINED
+# 25/300 Sarah Brown: DEAD
+# 16/301 Yujia Morris: DEAD 
+# 13/306 Christele Levy: DEAD
+# 19/305 Lionel Collin: DEAD
+# 05/309 Holly Connolly (hell yeah): CONSENTED (9/11)
+# 11/301 Agda Carlsen: CONSENTED (10/11)
+# 10/302 Johanna Jensen: DEAD
+# 28/301 Jakob Sorensen: DEAD
+# 07/303 Juliette (Alina) Jensen: CONSENTED (11/11)
+Valais_sample <- c(
+  "Kirstie Eklund",
+  "Helga Svensen",
+  "Miho Collins",
+  "Lauren Connolly",
+  "Akane Morris",
+  "Leon Connolly",
+  "Ole Ibsen",
+  "Julie Lund",
+  "Holly Conolly",
+  "Agda Carlsen",
+  "Juliette (Alina) Jensen")
+
+```
+
+  A randomized controlled trial design was implemented. Participants were randomly assigned to one of three groups: aerobic exercise (n = 33), anaerobic exercise (n = 33), or no-exercise control (n = 33). The aerobic group completed two 30-minute indoor walking sessions, while the anaerobic group completed three 20-minute high-intensity interval training (HIIT) sessions. Control participants did not perform any exercise.
+
+  Prior to testing, participants completed a brief survey assessing potential confounding variables, including sleep duration (hours), fatigue (rated on a scale from 1 to 10), and recent physical activity (minutes per week). Participants were not stratified by gender, as previous research suggests that sex differences in cognitive decline and memory performance in older adults are small and not consistently statistically significant (Yaffe et al., 2009; McDougall et al., 2014).
+
+```{r include=FALSE}
+set.seed(288)
+all_individuals <- c(Blonduos_sample,
+                     Vardo_sample,
+                     Helvig_sample,
+                     Biruwa_sample,
+                     Shinobi_sample,
+                     Reading_sample,
+                     Talu_sample,
+                     Eden_sample,
+                     Valais_sample)
+aerobic_group <- sample(all_individuals,33,replace=FALSE)
+all_individuals <- all_individuals[!(all_individuals %in% aerobic_group)]
+anaerobic_group <-sample(all_individuals,33,replace=FALSE)
+control_group <- all_individuals[!(all_individuals %in% anaerobic_group)]
+
+participants_random <- data.frame(aerobic_group,anaerobic_group,control_group)
+write.csv(participants_random,"participant_groups.csv") #Used in data collection
+
+```
+
+
+### Data Collection & Measurements
+
+  Participants completed three memory tasks immediately following exercise (or following the survey for the control group). Short-term memory was assessed using a card recall test (10 cards) and a vocabulary recall test (20 words). Working memory was assessed using a card-matching memory game involving 30 face-down cards, with performance measured as time (seconds) to completion.
+
+  To assess potential confounding variables, participants were asked the following survey questions prior to testing:
+
+* “How many hours did you sleep last night?”
+* “On a scale of 1 to 10, how tired do you feel right now?”
+* “How many minutes did you spend doing low-, moderate-, or vigorous-intensity physical activity last week?”
+
+  These variables were recorded to assess potential confounding but were not explicitly controlled for in the primary analysis due to limitations of the Islands simulation.
+
+  During the study, two participants in the control group passed away after group assignment but prior to data collection. As a result, the final sample size was n = 97, with slightly unequal group sizes (control n = 31; aerobic and anaerobic n = 33). The implications of this imbalance are addressed in the Discussion.
+
+
+### Statistical Analysis
+
+  Data were analyzed using inferential statistics at a significance level of $\alpha = 0.05$. A one-way ANOVA was used to assess differences in mean performance across treatment groups for each memory outcome. When appropriate, Tukey’s Honest Significant Difference (HSD) test was conducted for pairwise comparisons between groups.
+
+  The assumptions of ANOVA were assessed using graphical summaries. Distributions within groups appeared approximately symmetric with no extreme outliers, and variability across groups was similar, supporting the use of ANOVA.
+
+  To complement these analyses, 95% bootstrap confidence intervals were constructed to estimate uncertainty in mean performance across treatment groups. Bootstrap sampling with replacement was performed 1000 times for each treatment-outcome combination, using sample sizes corresponding to each group (n = 31 for control; n = 33 for aerobic and anaerobic). The 2.5th and 97.5th percentiles of the bootstrap distributions were used to define confidence intervals.
+
+
+
+## Results
+
+```{r, include=FALSE}
 #Library import + csv file import
 library(readr)
 library(tidyverse)
 data <- read.csv("data.csv")
 ```
 
-Memory game (s) performance by Treatment Group:
-```{r}
-data %>% #Box plot for memory game vs treatment group
-  ggplot(aes(y=memory.game.seconds,x=treatment.group)) +
-  geom_boxplot(outliers=FALSE,staplewidth = 0.6) +
-  geom_point(color="red",alpha=0.25) + #Translucent points showing each datum
-  labs(title="Memory Game Performance (seconds) by Treatment Group",
-       y="Memory Game Performance (seconds)",
-       x="Treatment Group")
+  Across all memory outcomes, no statistically significant differences were observed between treatment groups (all p-values > 0.05). Measures of central tendency (means/medians) and variability were similar across aerobic, anaerobic, and control groups, indicating minimal differences in overall performance.
+
+
+
+```{r, echo=FALSE}
+#Does ANOVA test & saves it to variable
+mem_aov <- aov(data$memory.game.seconds~data$treatment.group)
+#Prints a summary of the ANOVA test
+summary(mem_aov)
 ```
 
-Card recall test (/10) performance by treatment group:
-```{r}
+**Figure 1. One-way ANOVA Test Comparing Memory Game Performance Across Treatment Groups**
+
+  Figure 1 depicts a one-way ANOVA test conducted on the memory game completion time of the individuals in each treatment group. The analysis showed no statistically significant effect of exercise type on performance (F = 2.187), indicating insufficient evidence to conclude that mean performance differed between groups. The between-group variation was small relative to within-group variability, contributing to the non-significant ANOVA result. Using $\alpha = 0.05$, there is insufficient evidence to reject the null hypothesis that any of the mean memory game performances differ significantly (p = 0.118 > 0.05.) 
+
+  The assumptions of ANOVA were assessed and met. Memory game performance data were continuous and independent, with approximately normal distributions within each group (Q-Q plots used to assess normality can be found in the appendix). Additionally, it was found that none of the SDs differ significantly (15.96/15.11 < 2, 17.48/15.11 < 2). Thus, ANOVA was determined to be an appropriate procedure.
+
+
+```{r,echo=FALSE}
+#Performs a Tukey HSD test on the ANOVA results to get adjusted p & 95% CI
+TukeyHSD(mem_aov,conf.level=0.95)
+```
+**Figure 2. Tukey’s Honest Significant Difference Test for Pairwise Comparisons of Memory Game Performance**
+
+  Figure 2 presents the results of Tukey’s HSD post hoc analysis. No statistically significant pairwise differences were observed between any treatment groups (adjusted p-values > 0.05). Notably, there was no significant difference between the aerobic and anaerobic groups (p = 0.14), suggesting that exercise type did not differentially affect memory game performance.
+
+
+```{r, echo=FALSE, out.width="100%"}
 data %>% #bar chart for card recall test performance (/10) by treatment group
   ggplot(aes(x=cards.10)) +
   geom_bar(color="aquamarine2",fill="aquamarine") +
@@ -46,8 +672,12 @@ data %>% #bar chart for card recall test performance (/10) by treatment group
   facet_wrap(~treatment.group) #Wraps by treatment group
 ```
 
-Vocabulary recall test (/20) performance by treatment group:
-```{r}
+**Figure 3. Card Matching Performance (/10) by Treatment Group**
+
+  Figure 3 shows the distribution of Card Matching test scores for participants in the aerobic, anaerobic, and control groups. The bar graphs display the frequency of scores across the possible range of values for each treatment group. Performance was similar across all groups, with substantial overlap in score distributions. While the aerobic group showed slightly higher frequencies of higher scores, these differences were small and not clearly distinct from those observed in the anaerobic and control groups.
+
+
+```{r, echo=FALSE, out.width="100%"}
 data %>% #bar chart for vocabulary recall test by treatment group
   ggplot(aes(x=vocabulary.20)) +
   geom_bar(color="pink2",fill="pink") +
@@ -59,103 +689,27 @@ data %>% #bar chart for vocabulary recall test by treatment group
   facet_wrap(~treatment.group,dir="v") #Wraps by treatment group
 ```
 
-Q-Q Plots to test for normality of memory game data for each treatment group:
-```{r}
-#Memory game Q-Q plot for control group
-qqnorm(data$memory.game.seconds[data$treatment.group=="Control"])
-qqline(data$memory.game.seconds[data$treatment.group=="Control"])
+**Figure 4. Vocabulary Test Performance (/20) by Treatment Group**
 
-#Memory game Q-Q plot for anaerobic group
-qqnorm(data$memory.game.seconds[data$treatment.group=="Anaerobic"])
-qqline(data$memory.game.seconds[data$treatment.group=="Anaerobic"])
+  Figure 4 presents the distribution of Vocabulary test scores for the aerobic, anaerobic, and control groups. Each bar graph illustrates the frequency of participant scores within each treatment group. As with the card recall task, score distributions were highly similar across groups, with overlapping ranges and no clear separation in performance. Any observed differences in frequencies were and did not suggest meaningful differences between treatment conditions.
 
-#Memory game Q-Q plot for aerobic group
-qqnorm(data$memory.game.seconds[data$treatment.group=="Aerobic"])
-qqline(data$memory.game.seconds[data$treatment.group=="Aerobic"])
 
-#Data appears roughly normal in all Q-Q plots, deviation from the line likely 
-#stems from a small sample size
+```{r, echo=FALSE, out.width="100%"}
+data %>% #Box plot for memory game vs treatment group
+  ggplot(aes(y=memory.game.seconds,x=treatment.group)) +
+  geom_boxplot(outliers=FALSE,staplewidth = 0.6) +
+  geom_point(color="red",alpha=0.25) + #Translucent points showing each datum
+  labs(title="Memory Game Performance (seconds) by Treatment Group",
+       y="Memory Game Performance (seconds)",
+       x="Treatment Group")
 ```
 
-SDs of memory game (s) for each treatment group (ANOVA condition):
-```{r}
-#Creates a summary table of the memory game performance SD for each group
-data %>% summarize( 
-"Control SD"=sd(memory.game.seconds[treatment.group=="Control"]),
-"Anaerobic SD"=sd(memory.game.seconds[treatment.group=="Anaerobic"]),
-"Aerobic SD" = sd(memory.game.seconds[treatment.group=="Aerobic"]))
+**Figure 5. Memory Game Performance (s) by Treatment Group**
 
-# None are >2x as large as the others, therefore SD is similar enough for ANOVA
-```
-
-One-way ANOVA w/ Tukey HSD Test for memory game performance (s):
-```{r}
-#Does ANOVA test & saves it to variable
-mem_aov <- aov(data$memory.game.seconds~data$treatment.group)
-#Prints a summary of the ANOVA test
-summary(mem_aov)
-#Performs a Tukey HSD test on the ANOVA results to get adjusted p & 95% CI
-TukeyHSD(mem_aov,conf.level=0.95)
-```
-
-Scatter plot of 7-day exercise history (minutes) vs. each test method (memory game/card recall/vocabulary recall), wrapped by treatment group. Colour of points corresponds to sleep quantity (Less than or greater than 8 hours):
-```{r}
-#Memory game
-data %>%
-  #Adds a "total exercise" column combining low/med/high intensity exercise
-  mutate(total.exercise = low.intensity.exercise.7d+
-           moderate.intensity.exercise.7d+high.intensity.exercise.7d) %>%
-  #Adds column for if participants got more/less than 8 hrs of sleep last night
-  mutate(sleep.hrs.gl =
-           ifelse(sleep.hrs>8,"More than 8 hours", "Less than 8 hours")) %>%
-  #Scatter plot w/ 7-day exercise history and memory game performance
-  #Coloured by amount of sleep (>/< 8 hrs)
-  ggplot(aes(x=total.exercise,y=memory.game.seconds,colour=sleep.hrs.gl)) +
-  geom_point() +
-  labs(y="Memory Game Performance (seconds)",
-       x="Total Exercise in the last 7 days (minutes)",
-       title="7-Day Exercise History vs Memory Game Performance",
-       color="Sleep (hrs)") +
-  facet_wrap(~treatment.group) #Wrap by treatment group
-
-data %>%
-  #Adds a "total exercise" column combining low/med/high intensity exercise
-  mutate(total.exercise = low.intensity.exercise.7d+
-           moderate.intensity.exercise.7d+high.intensity.exercise.7d) %>%
-  #Adds column for if participants got more/less than 8 hrs of sleep last night
-  mutate(sleep.hrs.gl =
-           ifelse(sleep.hrs>8,"More than 8 hours", "Less than 8 hours")) %>%
-  #Scatter plot w/ 7-day exercise history and card recall test performance
-  #Coloured by amount of sleep (>/< 8 hrs)
-  ggplot(aes(x=total.exercise,y=cards.10,colour=sleep.hrs.gl)) +
-  geom_point() +
-  labs(y="Card Test Performance (/10)",
-       x="Total Exercise in the last 7 days (minutes)",
-       title="7-Day Exercise History vs Card Recall Performance",
-       color="Sleep (hrs)") +
-  facet_wrap(~treatment.group) #Wrap by treatment group
-
-data %>%
-  #Adds a "total exercise" column combining low/med/high intensity exercise
-  mutate(total.exercise = low.intensity.exercise.7d+
-           moderate.intensity.exercise.7d+high.intensity.exercise.7d) %>%
-  #Adds column for if participants got more/less than 8 hrs of sleep last night
-  mutate(sleep.hrs.gl =
-           ifelse(sleep.hrs>8,"More than 8 hours", "Less than 8 hours")) %>%
-  #Scatter plot w/ 7-day exercise history and vocabulary recall test performance
-  #Coloured by amount of sleep (>/< 8 hrs)
-  ggplot(aes(x=total.exercise,y=vocabulary.20,colour=sleep.hrs.gl)) +
-  geom_point() +
-  labs(y="Vocabulary Test Performance (/20)",
-       x="Total Exercise in the last 7 days (minutes)",
-       title="7-Day Exercise History vs Vocabulary Recall Performance",
-       color="Sleep (hrs)") +
-  facet_wrap(~treatment.group) #Wrapped by treatment group
-```
+  Figure 5 shows boxplots representing the distribution of Memory Game completion times (in seconds) for participants in the aerobic, anaerobic, and control groups. The boxplots illustrate the median, interquartile range, and potential outliers for each treatment group. Points indicating the values of each datum are additionally present. Median performance and interquartile ranges were comparable across groups, with no clear differences in central tendency or variability. The aerobic group showed slightly lower completion times on average, most clearly illustrated in the card recall test, which scored short-term memory (see figure 3). Anaerobic treatment group participants also averaged slightly higher than their control participant counterparts, although this difference was even more subtle. These differences were small relative to the spread of the data and consistent with the non-significant ANOVA results. Table 2 contains no p-values less than 0.05.
 
 
-Bootstrap + CI of memory game for each treatment group:
-```{r}
+```{r, include=FALSE, out.width="100%"}
 set.seed(288)
 
 #Control group
@@ -211,9 +765,7 @@ limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #Upper/lower 2.5% for 95% CI
 print("Anaerobic group, 95% CI") #Make it easier to read
 print(limits) #95% Confidence Interval
 ```
-
-Bootstrap + CI of Card Game for each treatment group:
-```{r}
+```{r, include=FALSE, out.width="100%"}
 set.seed(288)
 
 #Control group
@@ -270,9 +822,7 @@ limits<-quantile(boot_means$m_perf,c(0.025,0.975)) #Upper/lower 2.5% for 95% CI
 print("Anaerobic group, 95% CI") #visual clarity
 print(limits) #95% Confidence Interval
 ```
-
-Bootstrap + CI of Vocabulary game for each treatment group:
-```{r}
+```{r, include=FALSE, out.width="100%"}
 set.seed(288)
 
 #Control group
@@ -330,8 +880,19 @@ print("Anaerobic group, 95% CI") #visual clarity
 print(limits) #95% Confidence Interval
 ```
 
-Simulation-based hypothesis test ($H_0: \mu_{ctrl}-\mu_{aerobic} = 0$, $H_1: \mu_{ctrl}-\mu_{aerobic} \neq 0$) for each test type (memory/card/vocabulary):
-```{r}
+|  | **Card recall (/10)** | **Vocab recall (/20)** | **Memory game (s)** |
+|---|---|---|---|
+| **Aerobic** | 7.7 - 8.9 | 14.5 - 16.9 | 55.4 - 65.7 |
+| **Anaerobic** | 6.48 - 8.00 | 14.2 - 16.8 | 62.2 - 74.2 |
+| **Control** | 6.5 - 8.2 | 13.5 - 16.0 | 61.9 - 73.1 |
+
+**Table 1: 95% Bootstrap Confidence Intervals for the Average Performance on Memory Tests by Treatment Group.**
+
+  Bootstrap samples were performed on the basis that original samples were representative of the true Islands population of individuals aged 66 or older, and also that n>30 for each treatment group. The substantial overlap in 95% bootstrap confidence intervals across all treatment groups suggests no meaningful differences in mean performance. The lack of differences in means undermines the influence of exercise, particularly aerobic exercise, on memory performance. While the aerobic group showed slightly higher upper bounds in the Card and Vocabulary Recall tests (indicating higher scores), and slightly lower bounds in the Memory Game test (indicating faster completion time) these differences are small and fall within the range of variability seen in the other groups.This overlap indicates that any observed differences in sample means are small relative to within-group variability and are not consistent with a meaningful effect of exercise type on memory performance. 
+
+
+
+```{r, include=FALSE, out.width="100%"}
 set.seed(288)
 
 #Memory test
@@ -399,9 +960,7 @@ diff_m_perf %>% summarize(n=n(), #sample size/test statistic/p value
                           p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat)))
 
 ```
-
-Simulation-based hypothesis test ($H_0: \mu_{ctrl}-\mu_{anaerobic} = 0$, $H_1: \mu_{ctrl}-\mu_{anaerobic} \neq 0$) for each test type (memory/card/vocabulary):
-```{r}
+```{r, include=FALSE, out.width="100%"}
 set.seed(288)
 
 #Memory test
@@ -469,9 +1028,7 @@ diff_m_perf %>% summarize(n=n(), #sample size/test statistic/p value
                           p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat)))
 
 ```
-
-Simulation-based hypothesis test ($H_0: \mu_{aerobic}-\mu_{anaerobic} = 0$, $H_1: \mu_{aerobic}-\mu_{anaerobic} \neq 0$) for each test type (memory/card/vocabulary):
-```{r}
+```{r, include=FALSE, out.width="100%"}
 set.seed(288)
 
 #Memory test
@@ -535,21 +1092,341 @@ diff_m_perf %>% summarize(n=n(), #sample size/test statistic/p value
                           "Test statistic" = test_stat,
                           p=mean(diff<=-abs(test_stat)|diff>=abs(test_stat)))
 ```
-### Conclusions 
 
-etc
+|  | **Card recall (/10)** | **Vocab recall (/20)** | **Memory game (s)** |
+|-----------------------|-------------|--------------|-------------|
+| $\mu_{ctrl}-\mu_{anaerobic}$| p = 0.858   | p = 0.445    | p = 0.854   |
+| $\mu_{ctrl}-\mu_{aerobic}$ | p = 0.099   | p = 0.308    | p = 0.097   |
+| $\mu_{aerobic}-\mu_{anaerobic}$ | p = 0.041   | p = 0.793    | p = 0.053   |
+
+**Table 2: P-Values From Randomization Test (n=1,000) Representing Likelihood of Obtained Experimental Outcomes Assuming the Null Hypothesis is True.**
+
+  The randomization tests in Table 2 assume that participants were randomly assigned to the aerobic, anaerobic, and control groups, ensuring independence between observations and reducing systematic bias. This condition is met because there was an equal number of participants in each treatment group. Randomization helps ensure that potential confounding variables, such as prior fatigue or exercise history, are approximately balanced across groups. Additionally, randomization tests do not require normally distributed data, making them appropriate for the card and vocabulary recall tests. Therefore, the assumptions required for randomization-based inference are satisfied.
+
+  The p-values for comparisons between the aerobic and control groups and between the anaerobic and control groups all exceeded the significance threshold of $\alpha = 0.05$, indicating insufficient evidence to reject the null hypothesis for these comparisons. Although the randomization test indicated a statistically significant difference between the anaerobic and aerobic groups for the card recall task (p = 0.041), this result was not consistent across other memory outcomes and was not supported by the ANOVA or Tukey analyses. Therefore, this isolated finding is likely attributable to sampling variability rather than a robust effect of exercise type on memory performance.
+
+  While the results obtained did follow a pattern that agrees with the hypothesis, the aerobic treatment group outperformed the anaerobic, and the anaerobic outperformed the control, these differences in performance were determined to be statistically negligible. Inferential analyses did not support statistically significant differences between treatment groups.
 
 
-### Discussion
+## Conclusions 
 
-etc
+  Acute aerobic and anaerobic exercise did not produce statistically significant improvements in working or short-term memory in adults aged 66 and older. Although descriptive trends suggested slightly better performance in the aerobic group, inferential analyses, including ANOVA and bootstrap confidence intervals, indicated that these differences were not statistically significant. These findings suggest that acute exercise may not be an effective immediate intervention for improving memory performance in older adults.
 
-
-### References
-
-etc
+  Although descriptive trends indicated slightly better performance in the aerobic group, these findings were not supported by the inferential analyses. These results suggest that any immediate cognitive benefits of exercise in this population are likely small or highly variable. Further research with larger sample sizes is needed to determine whether acute exercise has a meaningful clinical impact on memory performance in older adults.
 
 
-### Appendixes
+## Discussion
 
-etc
+  This study found no statistically significant differences in working or short-term memory performance between aerobic, anaerobic, and control groups, contrary to our hypothesis. Although descriptive trends suggested slightly better performance in the aerobic group, these differences were small and likely attributable to sampling variability rather than a true effect. Post hoc comparisons using Tukey’s Honest Significant Difference (HSD) test indicated no statistically significant differences between any treatment groups, including between the aerobic and anaerobic groups, suggesting that exercise type did not differentially influence memory performance. One possible explanation is that acute exercise produces only modest or highly variable cognitive effects in older adults, which may not be detectable in a single-session experimental design.
+
+  These findings contrast with the well-established long-term cognitive benefits of exercise reported in the literature. While regular physical activity is associated with structural and functional brain adaptations that support cognitive function, acute bouts of exercise may not produce immediate measurable improvements in memory performance. Previous studies have reported modest short-term cognitive benefits of exercise, particularly in younger populations and in working memory tasks (Chang et al., 2012; Erickson et al., 2011). Similarly, aerobic exercise has been shown to produce slightly greater cognitive benefits than anaerobic exercise (Erwin & Schreiber, 2024), which is consistent with the descriptive trends observed in this study. However, unlike these studies, our results did not reach statistical significance. This discrepancy may be explained by differences in study populations and design, as acute exercise effects in older adults are less consistent and often exhibit greater variability (Colcombe & Kramer, 2003; McSween et al., 2019).
+
+  Several limitations should be considered when interpreting these results. First, the sample size was relatively small at the group level, which may have limited statistical power to detect subtle differences between treatment groups. Second, group sizes were slightly unequal due to participant loss in the control group, which may have introduced minor imbalance. Third, potential confounding variables such as sleep, fatigue, and prior physical activity were measured but not controlled for in the analysis, which may have introduced additional variability in performance. Finally, the simulated nature of the Islands environment may limit the generalizability of these findings to real-world populations.
+
+  Although no statistically significant effects were observed, the results may still have practical relevance. Even small improvements in memory performance could be meaningful for older adults experiencing cognitive decline. This highlights the distinction between statistical significance and clinical significance, where effects that are not statistically detectable may still be practically important.
+
+  Overall, these findings suggest that acute exercise is unlikely to be a reliable short-term intervention for improving memory performance in older adults. Future research should aim to increase sample size, improve control of confounding variables, and explore repeated or longer-duration exercise interventions. Incorporating baseline cognitive assessments or stratifying participants by fitness level may also help identify subgroups that may benefit more from acute exercise.
+
+
+## References
+
+Chang, Y. K., et al. (2012). The effects of acute exercise on cognitive performance: A
+ meta-analysis. Brain Research, 1453, 87–101. https://doi.org/10.1016/j.brainres.2012.02.068
+
+Colcombe, S., & Kramer, A. F. (2003). Fitness effects on the cognitive function of older 
+adults. Psychological Science, 14(2), 125–130. 
+https://doi.org/10.1111/1467-9280.t01-1-01430
+
+Deary, I. J., et al. (2009). Age-associated cognitive decline. British Medical Bulletin, 92(1), 
+135–152. https://doi.org/10.1093/bmb/ldp033
+
+Erwin, H., & Schreiber, S. (2024). Aerobic and anaerobic exercise’s impact on cognitive 
+functions in eighth grade students. International Journal of Environmental Research 
+and Public Health, 21(7), 833. https://doi.org/10.3390/ijerph21070833
+
+Jost, Z., & Kujach, S. (2025). Understanding cognitive decline in aging: Mechanisms and 
+mitigation strategies—A narrative review. Clinical Interventions in Aging, 20, 
+459–469. https://doi.org/10.2147/CIA.S510670
+
+McDougall, G. J., Pituch, K. A., Stanton, M. P., & Chang, W. (2014). Memory performance 
+and affect: Are there gender differences in community-residing older adults? Issues in 
+Mental Health Nursing, 35(8), 620–627. 
+https://doi.org/10.3109/01612840.2014.895071
+
+McSween, M. P., Coombes, J. S., MacKay, C. P., Rodriguez, A. D., Erickson, K. I., Copland, 
+D. A., & McMahon, K. L. (2019). The immediate effects of acute aerobic exercise on 
+cognition in healthy older adults: A systematic review. Sports Medicine, 49(1), 67–82. 
+https://doi.org/10.1007/s40279-018-01039-9
+
+Mousley, A., et al. (2025). Topological turning points across the human lifespan. Nature 
+Communications, 16(1). https://doi.org/10.1038/s41467-025-65974-8
+
+Rockwood, K., et al. (2014). Good days and bad days in dementia: A qualitative chart review 
+of variable symptom expression. International Psychogeriatrics, 26(8), 1239–1246. 
+https://doi.org/10.1017/S1041610214000222
+
+Yaffe, K., Fiocco, A. J., Lindquist, K., Vittinghoff, E., Simonsick, E. M., Newman, A. B., 
+Satterfield, S., Rosano, C., Rubin, S. M., Ayonayon, H. N., & Harris, T. B. (2009). 
+Predictors of maintaining cognitive function in older adults: The Health ABC Study. 
+Neurology, 72(23), 2029–2035. https://doi.org/10.1212/WNL.0b013e3181a92c36
+
+
+## Appendixes
+
+```{r, echo=FALSE, out.width="100%"}
+#Memory game Q-Q plot for control group
+qqnorm(data$memory.game.seconds[data$treatment.group=="Control"])
+qqline(data$memory.game.seconds[data$treatment.group=="Control"])
+
+#Memory game Q-Q plot for anaerobic group
+qqnorm(data$memory.game.seconds[data$treatment.group=="Anaerobic"])
+qqline(data$memory.game.seconds[data$treatment.group=="Anaerobic"])
+
+#Memory game Q-Q plot for aerobic group
+qqnorm(data$memory.game.seconds[data$treatment.group=="Aerobic"])
+qqline(data$memory.game.seconds[data$treatment.group=="Aerobic"])
+
+#Data appears roughly normal in all Q-Q plots, deviation from the line likely 
+#stems from a small sample size
+```
+
+**Figure 6, 7, 8. Q-Q Plots to Assess Normality of Memory Test Data.**
+
+
+
+```{r echo=FALSE, out.width="100%"}
+#Memory game
+data %>%
+  #Adds a "total exercise" column combining low/med/high intensity exercise
+  mutate(total.exercise = low.intensity.exercise.7d+
+           moderate.intensity.exercise.7d+high.intensity.exercise.7d) %>%
+  #Adds column for if participants got more/less than 8 hrs of sleep last night
+  mutate(sleep.hrs.gl =
+           ifelse(sleep.hrs>8,"More than 8 hours", "Less than 8 hours")) %>%
+  #Scatter plot w/ 7-day exercise history and memory game performance
+  #Coloured by amount of sleep (>/< 8 hrs)
+  ggplot(aes(x=total.exercise,y=memory.game.seconds,colour=sleep.hrs.gl)) +
+  geom_point() +
+  labs(y="Memory Game Performance (seconds)",
+       x="Total Exercise in the last 7 days (minutes)",
+       title="7-Day Exercise History vs Memory Game Performance",
+       color="Sleep (hrs)") +
+  facet_wrap(~treatment.group) #Wrap by treatment group
+
+data %>%
+  #Adds a "total exercise" column combining low/med/high intensity exercise
+  mutate(total.exercise = low.intensity.exercise.7d+
+           moderate.intensity.exercise.7d+high.intensity.exercise.7d) %>%
+  #Adds column for if participants got more/less than 8 hrs of sleep last night
+  mutate(sleep.hrs.gl =
+           ifelse(sleep.hrs>8,"More than 8 hours", "Less than 8 hours")) %>%
+  #Scatter plot w/ 7-day exercise history and card recall test performance
+  #Coloured by amount of sleep (>/< 8 hrs)
+  ggplot(aes(x=total.exercise,y=cards.10,colour=sleep.hrs.gl)) +
+  geom_point() +
+  labs(y="Card Test Performance (/10)",
+       x="Total Exercise in the last 7 days (minutes)",
+       title="7-Day Exercise History vs Card Recall Performance",
+       color="Sleep (hrs)") +
+  facet_wrap(~treatment.group) #Wrap by treatment group
+
+data %>%
+  #Adds a "total exercise" column combining low/med/high intensity exercise
+  mutate(total.exercise = low.intensity.exercise.7d+
+           moderate.intensity.exercise.7d+high.intensity.exercise.7d) %>%
+  #Adds column for if participants got more/less than 8 hrs of sleep last night
+  mutate(sleep.hrs.gl =
+           ifelse(sleep.hrs>8,"More than 8 hours", "Less than 8 hours")) %>%
+  #Scatter plot w/ 7-day exercise history and vocabulary recall test performance
+  #Coloured by amount of sleep (>/< 8 hrs)
+  ggplot(aes(x=total.exercise,y=vocabulary.20,colour=sleep.hrs.gl)) +
+  geom_point() +
+  labs(y="Vocabulary Test Performance (/20)",
+       x="Total Exercise in the last 7 days (minutes)",
+       title="7-Day Exercise History vs Vocabulary Recall Performance",
+       color="Sleep (hrs)") +
+  facet_wrap(~treatment.group) #Wrapped by treatment group
+```
+
+**Figure 9, 10, 11. Scatterplots comparing 7-day exercise history and test performance (memory/card/vocabulary). Separated by treatment group. Filled by hours of sleep (</> 8 hours.)**
+
+
+
+```{r include=FALSE}
+#Means
+data %>% summarize(mean_mem_cont=mean(memory.game.seconds[
+  treatment.group=="Control"]),
+                   mean_card_cont=mean(cards.10[
+                     treatment.group=="Control"]),
+                   mean_vocab_cont=mean(vocabulary.20[
+                     treatment.group=="Control"]),
+                   mean_mem_ae=mean(memory.game.seconds[
+                     treatment.group=="Aerobic"]),
+                   mean_card_ae=mean(cards.10[
+                     treatment.group=="Aerobic"]),
+                   mean_vocab_ae=mean(vocabulary.20[
+                     treatment.group=="Aerobic"]),
+                   mean_mem_anae=mean(memory.game.seconds[
+                     treatment.group=="Anaerobic"]),
+                   mean_card_anae=mean(cards.10[
+                     treatment.group=="Anaerobic"]),
+                   mean_vocab_anae=mean(vocabulary.20[
+                     treatment.group=="Anaerobic"]))
+
+#Standard Deviations
+data %>% summarise(sd_mem_cont=sd(memory.game.seconds[
+                     treatment.group=="Control"]),
+                   sd_card_cont=sd(cards.10[
+                     treatment.group=="Control"]),
+                   sd_vocab_cont=sd(vocabulary.20[
+                     treatment.group=="Control"]),
+                   sd_mem_ae=sd(memory.game.seconds[
+                     treatment.group=="Aerobic"]),
+                   sd_card_ae=sd(cards.10[
+                     treatment.group=="Aerobic"]),
+                   sd_vocab_ae=sd(vocabulary.20[
+                     treatment.group=="Aerobic"]),
+                   sd_mem_anae=sd(memory.game.seconds[
+                     treatment.group=="Anaerobic"]),
+                   sd_card_anae=sd(cards.10[
+                     treatment.group=="Anaerobic"]),
+                   sd_vocab_anae=sd(vocabulary.20[
+                     treatment.group=="Anaerobic"]))
+
+#Medians
+data %>% summarise(med_mem_cont=median(memory.game.seconds[
+                     treatment.group=="Control"]),
+                   med_card_cont=median(cards.10[
+                     treatment.group=="Control"]),
+                   med_vocab_cont=median(vocabulary.20[
+                     treatment.group=="Control"]),
+                   med_mem_ae=median(memory.game.seconds[
+                     treatment.group=="Aerobic"]),
+                   med_card_ae=median(cards.10[
+                     treatment.group=="Aerobic"]),
+                   med_vocab_ae=median(vocabulary.20[
+                     treatment.group=="Aerobic"]),
+                   med_mem_anae=median(memory.game.seconds[
+                     treatment.group=="Anaerobic"]),
+                   med_card_anae=median(cards.10[
+                     treatment.group=="Anaerobic"]),
+                   med_vocab_anae=median(vocabulary.20[
+                     treatment.group=="Anaerobic"]))
+
+#Ranges
+data %>% summarise(range_mem_cont=range(memory.game.seconds[
+                     treatment.group=="Control"]),
+                   range_card_cont=range(cards.10[
+                     treatment.group=="Control"]),
+                   range_vocab_cont=range(vocabulary.20[
+                     treatment.group=="Control"]),
+                   range_mem_ae=range(memory.game.seconds[
+                     treatment.group=="Aerobic"]),
+                   range_card_ae=range(cards.10[
+                     treatment.group=="Aerobic"]),
+                   range_vocab_ae=range(vocabulary.20[
+                     treatment.group=="Aerobic"]),
+                   range_mem_anae=range(memory.game.seconds[
+                     treatment.group=="Anaerobic"]),
+                   range_card_anae=range(cards.10[
+                     treatment.group=="Anaerobic"]),
+                   range_vocab_anae=range(vocabulary.20[
+                     treatment.group=="Anaerobic"]))
+
+#Q1
+data %>% summarise(q1_mem_cont=quantile(memory.game.seconds[
+                     treatment.group=="Control"],0.25),
+                   q1_card_cont=quantile(cards.10[
+                     treatment.group=="Control"],0.25),
+                   q1_vocab_cont=quantile(vocabulary.20[
+                     treatment.group=="Control"],0.25),
+                   q1_mem_ae=quantile(memory.game.seconds[
+                     treatment.group=="Aerobic"],0.25),
+                   q1_card_ae=quantile(cards.10[
+                     treatment.group=="Aerobic"],0.25),
+                   q1_vocab_ae=quantile(vocabulary.20[
+                     treatment.group=="Aerobic"],0.25),
+                   q1_mem_anae=quantile(memory.game.seconds[
+                     treatment.group=="Anaerobic"],0.25),
+                   q1_card_anae=quantile(cards.10[
+                     treatment.group=="Anaerobic"],0.25),
+                   q1_vocab_anae=quantile(vocabulary.20[
+                     treatment.group=="Anaerobic"],0.25))
+
+#Q3
+data %>% summarise(q3_mem_cont=quantile(memory.game.seconds[
+                     treatment.group=="Control"],0.75),
+                   q3_card_cont=quantile(cards.10[
+                     treatment.group=="Control"],0.75),
+                   q3_vocab_cont=quantile(vocabulary.20[
+                     treatment.group=="Control"],0.75),
+                   q3_mem_ae=quantile(memory.game.seconds[
+                     treatment.group=="Aerobic"],0.75),
+                   q3_card_ae=quantile(cards.10[
+                     treatment.group=="Aerobic"],0.75),
+                   q3_vocab_ae=quantile(vocabulary.20[
+                     treatment.group=="Aerobic"],0.75),
+                   q3_mem_anae=quantile(memory.game.seconds[
+                     treatment.group=="Anaerobic"],0.75),
+                   q3_card_anae=quantile(cards.10[
+                     treatment.group=="Anaerobic"],0.75),
+                   q3_vocab_anae=quantile(vocabulary.20[
+                     treatment.group=="Anaerobic"],0.75))
+```
+
+|  | **Memory** | **Cards** | **Vocabulary** |
+|---|---|---|---|
+| **Control** | 67.05 | 7.42 | 14.84 |
+| **Aerobic** | 60.20 | 8.33 | 15.79 |
+| **Anaerobic** | 67.81 | 7.30 | 15.55 |
+
+**Table 3. Table comparing the means for each treatment-test pairing.**
+
+
+|   | **Memory**  | **Cards**  | **Vocabulary** |
+|---------------|---------|--------|------------|
+| **Control**   | 15.96 | 2.36 | 3.70     |
+| **Aerobic**   | 15.11 | 1.78 | 3.61     |
+| **Anaerobic** | 17.48 | 2.28 | 3.81     |
+
+**Table 4. Table comparing the standard deviations for each treatment-test pairing.**
+
+
+|           | **Memory** | **Cards** | **Vocabulary** |
+|-----------|--------|------|------------|
+| **Control**   | 65.4   | 8     | 16         |
+| **Aerobic**   | 54.1   | 9     | 16         |
+| **Anaerobic** | 65.6   | 8     | 16         |
+
+**Table 5. Table comparing the medians for each treatment-test pairing.**
+
+
+|           | **Memory** | **Cards** | **Vocabulary** |
+|-----------|------------|------|------------|
+| **Control**   | 39.0-108.0 | 2-10  | 4-20       |
+| **Aerobic**   | 38.2-102.0 | 2-10  | 3-20       |
+| **Anaerobic** | 44.6-126.0 | 1-10  | 5-20       |
+
+**Table 6. Table comparing the ranges for each treatment-test pairing.**
+
+
+Q1:
+
+|           | **Memory** | **Cards** | **Vocabulary** |
+|-----------|------------|-----------|----------------|
+| **Control**   | 56.75  | 6     | 13         |
+| **Aerobic**  | 49.3   | 7     | 15         |
+| **Anaerobic** | 54.3   | 6     | 14         |
+
+**Table 7. Table comparing the 1st quartile for each treatment-test pairing.**
+
+
+Q3:
+
+|               | **Memory** | **Cards** | **Vocabulary** |
+|---------------|------------|-----------|----------------|
+| **Control**   | 73.55  | 9     | 17         |
+| **Aerobic**   | 70.7   | 10    | 18         |
+| **Anaerobic** | 76.5   | 9     | 18         |
+
+**Table 8. Table comparing the 3rd quartile for each treatment-test pairing.**
